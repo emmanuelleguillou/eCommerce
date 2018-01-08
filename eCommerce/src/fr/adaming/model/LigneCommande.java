@@ -28,9 +28,9 @@ public class LigneCommande implements Serializable {
 	@JoinColumn(referencedColumnName = "idProduit")
 	private Produit produit;
 
-	@ManyToMany
-	@JoinTable(name="commandes_lignescommandes", joinColumns=@JoinColumn(name="idLigneCommande"),inverseJoinColumns=@JoinColumn(name="idCommande") )
-	private List<Commande> listeDesCommandes;
+	@ManyToOne
+	@JoinColumn(referencedColumnName = "idCommande")
+	Commande commandes;
 
 	@ManyToOne
 	@JoinColumn(referencedColumnName="idPanier")
@@ -79,12 +79,21 @@ public class LigneCommande implements Serializable {
 		this.produit = produit;
 	}
 
-	public List<Commande> getListeDesCommandes() {
-		return listeDesCommandes;
+
+	public Commande getCommandes() {
+		return commandes;
 	}
 
-	public void setListeDesCommandes(List<Commande> listeDesCommandes) {
-		this.listeDesCommandes = listeDesCommandes;
+	public void setCommandes(Commande commandes) {
+		this.commandes = commandes;
+	}
+
+	public Panier getPanier() {
+		return panier;
+	}
+
+	public void setPanier(Panier panier) {
+		this.panier = panier;
 	}
 
 	public void setQuantite(int quantite) {

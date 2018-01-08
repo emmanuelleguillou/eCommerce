@@ -13,6 +13,7 @@ import javax.persistence.ManyToMany;
 
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -35,7 +36,8 @@ public class Commande implements Serializable {
 	@JoinColumn(name = "client_id", referencedColumnName = "idClient")
 	private Client client;
 
-	@ManyToMany(mappedBy = "listeDesCommandes")
+	@OneToMany
+	@JoinColumn(referencedColumnName="idCommande")
 	private List<LigneCommande> ListeLigneCommande;
 
 	public Commande() {
