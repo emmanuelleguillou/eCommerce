@@ -1,5 +1,5 @@
 package fr.adaming.dao;
 
-public class CategorieDaoImpl {
+public class CategorieDaoImpl implements ICategorieDao {
 
 }

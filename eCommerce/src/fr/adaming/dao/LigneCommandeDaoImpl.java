@@ -1,5 +1,5 @@
 package fr.adaming.dao;
 
-public class LigneCommandeDaoImpl {
+public class LigneCommandeDaoImpl implements ILigneCommandeDao{
 
 }

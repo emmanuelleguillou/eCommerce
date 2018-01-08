@@ -1,5 +1,5 @@
 package fr.adaming.dao;
 
-public class ProduitDaoImpl {
+public class ProduitDaoImpl implements IProduitDao {
 
 }
