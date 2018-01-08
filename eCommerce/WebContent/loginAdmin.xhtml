@@ -7,26 +7,15 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <h:head>
-	<h:title>Page Ajout</h:title>
+	<h:title>Page Login</h:title>
 </h:head>
 <h:body>
-	<h:form>
-		<p:breadCrumb>
-			<p:menuitem value="Accueil" url="accueil.xhtml" />
-			<p:menuitem value="Ajout" url="ajoutAdmin.xhtml" />
-			<p:menuitem value="Supprimer" url="" />
-			<p:menuitem value="Modifier" url="" />
-			<p:menuitem value="Rechercher" url="" />
-		</p:breadCrumb>
-		<p:spacer height="10"></p:spacer>
-		<p:separator></p:separator>
-
-	</h:form>
+	
 	<h:form>
 		<h:panelGrid columns="2">
 		Mail : <h:inputText value="#{adminMB.administrateur.mail}"></h:inputText>
 		Mot de passe : <h:inputText value="#{adminMB.administrateur.mdp}"></h:inputText>
-			<p:commandButton value="Ajouter" action="#{adminMB.ajouterAdmin}"></p:commandButton>
+			<p:commandButton value="Login" action="#{adminMB.identifierAdmin}"></p:commandButton>
 		</h:panelGrid>
 
 	</h:form>

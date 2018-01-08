@@ -2,7 +2,6 @@ package fr.adaming.managedbean;
 
 import java.io.Serializable;
 
-import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
@@ -10,6 +9,7 @@ import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 
 import fr.adaming.model.Administrateur;
+import fr.adaming.model.Categorie;
 import fr.adaming.service.IAdministrateurService;
 
 
@@ -23,18 +23,14 @@ public class AdministrateurManagedBean implements Serializable {
 	private IAdministrateurService administrateurService;
 	
 	private Administrateur administrateur;
-	
+
 	private HttpSession maSession;
 	
 	public AdministrateurManagedBean() {
 		this.administrateur=new Administrateur();
 	}
 
-	@PostConstruct
-	public void init() {
-		this.maSession = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
-		this.administrateur = (Administrateur) maSession.getAttribute("adminSession");
-	}
+	
 
 	public IAdministrateurService getAdministrateurService() {
 		return administrateurService;
@@ -52,11 +48,10 @@ public class AdministrateurManagedBean implements Serializable {
 		this.administrateur = administrateur;
 	}
 	
-	public String ajouterAdmin(){
-		// Récuperer l'agent dans la session		
-		this.administrateur= administrateurService.addAdmin(this.administrateur);
-		System.out.println(this.administrateur);
-		if (this.administrateur.getId_a()!=0){
+	public String identifierAdmin(){
+		Administrateur aOut = administrateurService.isExist(this.administrateur);
+
+		if (aOut!=null){
 			return "success";
 		}else
 			return "failure";
