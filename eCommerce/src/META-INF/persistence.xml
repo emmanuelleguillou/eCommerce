@@ -8,6 +8,7 @@
 
 		<class>fr.adaming.model.Administrateur</class>
 		<class>fr.adaming.model.Produit</class>
+		<class>fr.adaming.model.Categorie</class>
 		
 		
 
