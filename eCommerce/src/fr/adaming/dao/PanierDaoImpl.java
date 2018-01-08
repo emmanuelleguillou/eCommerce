@@ -1,5 +1,5 @@
 package fr.adaming.dao;
 
-public class PanierDaoImpl {
+public class PanierDaoImpl implements IPanierDao {
 
 }

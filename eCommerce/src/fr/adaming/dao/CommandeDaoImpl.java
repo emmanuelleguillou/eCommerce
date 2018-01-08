@@ -1,5 +1,5 @@
 package fr.adaming.dao;
 
-public class CommandeDaoImpl {
+public class CommandeDaoImpl implements ICommandeDao{
 
 }
