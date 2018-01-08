@@ -2,9 +2,11 @@ package fr.adaming.managedbean;
 
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 
 import fr.adaming.model.Categorie;
@@ -25,7 +27,11 @@ public class CategorieManagedBean {
 	public CategorieManagedBean() {
 		this.categorie = new Categorie();
 	}
-
+	@PostConstruct
+	public void init() {
+		this.maSession = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
+	}
+	
 	public ICategorieService getCategorieService() {
 		return categorieService;
 	}
@@ -73,6 +79,8 @@ public class CategorieManagedBean {
 		maSession.setAttribute("categoriesList", this.listeCategories);
 		return "accueilAdmin";
 	}
+	
+	
 
 	public String modifierCategorie() {
 		// Récuperer l'agent dans la session
@@ -95,6 +103,15 @@ public class CategorieManagedBean {
 		} else
 			return "rechercherCategorie";
 
+	}
+	
+	public String modifLien() {
+		// Appel de la methode service
+		Categorie cOut = categorieService.getCategorie(this.categorie.getIdCategorie());
+		
+		this.categorie=cOut;
+		
+		return"modifCategorie";
 	}
 
 }

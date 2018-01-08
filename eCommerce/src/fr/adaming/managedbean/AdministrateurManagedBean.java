@@ -1,6 +1,7 @@
 package fr.adaming.managedbean;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpSession;
 import fr.adaming.model.Administrateur;
 import fr.adaming.model.Categorie;
 import fr.adaming.service.IAdministrateurService;
+import fr.adaming.service.ICategorieService;
 
 
 
@@ -21,9 +23,13 @@ public class AdministrateurManagedBean implements Serializable {
 
 	@EJB
 	private IAdministrateurService administrateurService;
+	@EJB
+	private ICategorieService categorieService;
 	
 	private Administrateur administrateur;
 
+	private List<Categorie> listeCategorie;
+	
 	private HttpSession maSession;
 	
 	public AdministrateurManagedBean() {
@@ -52,6 +58,10 @@ public class AdministrateurManagedBean implements Serializable {
 		Administrateur aOut = administrateurService.isExist(this.administrateur);
 
 		if (aOut!=null){
+			// Recuperation de la liste
+			listeCategorie = categorieService.getAllCategorie();
+			// Ajouter la liste dans la session
+			FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("categoriesList", listeCategorie);
 			return "accueilAdmin";
 		}else
 			return "failure";
