@@ -1,11 +1,59 @@
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
 <head>
-<meta charset="ISO-8859-1">
 <title>Page Accueil Admin</title>
 </head>
 <body>
+	<h:form>
+		<p:growl id="messages" />
 
+		<p:menubar>
+			<p:menuitem value="Accueil" url="accueilAdmin.xhtml"
+				icon="ui-icon-home" />
+
+			<p:submenu label="Categories" icon="ui-icon-person">
+
+				<p:menuitem value="Ajouter une catégorie" url="ajoutCategorie.xhtml"
+					icon="ui-icon-plus" />
+				<p:menuitem value="Rechercher une catégorie"
+					url="rechercherCategorie.xhtml" />
+			</p:submenu>
+
+			<p:submenu label="Produits" icon="ui-icon-person">
+
+				<p:menuitem value="Ajouter un produit" url="" icon="ui-icon-plus" />
+				<p:menuitem value="Supprimer un produit" url="" icon="ui-icon-minus" />
+				<p:menuitem value="Modifier un produit" url="" />
+				<p:menuitem value="Rechercher un produit" url="" />
+			</p:submenu>
+
+		</p:menubar>
+
+		<h1 style="text-aliign: center; color: red">Liste des voitures</h1>
+
+		<p:dataTable var="cat" value="#{sessionScope.categoriesList}">
+			<p:column headerText="Id">
+				<h:outputText value="#{cat.idCategorie}" />
+			</p:column>
+
+			<p:column headerText="Nom">
+				<h:outputText value="#{cat.nomCategorie}" />
+			</p:column>
+
+			<p:column headerText="Designation">
+				<h:outputText value="#{cat.description}" />
+			</p:column>
+
+		</p:dataTable>
+
+
+
+	</h:form>
 
 
 

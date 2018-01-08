@@ -52,7 +52,7 @@ public class AdministrateurManagedBean implements Serializable {
 		Administrateur aOut = administrateurService.isExist(this.administrateur);
 
 		if (aOut!=null){
-			return "success";
+			return "accueilAdmin";
 		}else
 			return "failure";
 	}

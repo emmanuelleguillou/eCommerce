@@ -58,8 +58,8 @@ public class CategorieManagedBean {
 			// recuperer la nouvelle liste de la bd
 			this.listeCategories = categorieService.getAllCategorie();
 			// Mettre a jour la liste dans la session
-			maSession.setAttribute("voituresList", this.listeCategories);
-			return "success";
+			maSession.setAttribute("categoriesList", this.listeCategories);
+			return "accueilAdmin";
 		} else
 			return "failure";
 	}
@@ -70,8 +70,8 @@ public class CategorieManagedBean {
 		// recuperer la nouvelle liste de la bd
 		this.listeCategories = categorieService.getAllCategorie();
 		// Mettre a jour la liste dans la session
-		maSession.setAttribute("voituresList", this.listeCategories);
-		return "accueil";
+		maSession.setAttribute("categoriesList", this.listeCategories);
+		return "accueilAdmin";
 	}
 
 	public String modifierCategorie() {
@@ -82,10 +82,10 @@ public class CategorieManagedBean {
 			// recuperer la nouvelle liste de la bd
 			this.listeCategories = categorieService.getAllCategorie();
 			// Mettre a jour la liste dans la session
-			maSession.setAttribute("voituresList", this.listeCategories);
-			return "accueil";
+			maSession.setAttribute("categoriesList", this.listeCategories);
+			return "accueilAdmin";
 		} else
-			return "accueil";
+			return "accueilAdmin";
 	}
 
 	public String rechercherCategorie() {
