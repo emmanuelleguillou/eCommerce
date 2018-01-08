@@ -61,4 +61,11 @@ public class Administrateur implements Serializable {
 		this.mdp = mdp;
 	}
 
+	@Override
+	public String toString() {
+		return "Administrateur [id_a=" + id_a + ", mail=" + mail + ", mdp=" + mdp + "]";
+	}
+	
+	
+
 }

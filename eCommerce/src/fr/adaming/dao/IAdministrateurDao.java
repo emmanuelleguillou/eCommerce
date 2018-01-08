@@ -1,5 +1,10 @@
 package fr.adaming.dao;
 
-public interface IAdministrateurDao {
+import javax.ejb.Local;
 
+import fr.adaming.model.Administrateur;
+@Local
+public interface IAdministrateurDao {
+	public Administrateur addAdmin(Administrateur a);
 }
+

@@ -1,5 +1,9 @@
 package fr.adaming.service;
 
-public interface IAdministrateurService {
+import javax.ejb.Local;
 
+import fr.adaming.model.Administrateur;
+@Local
+public interface IAdministrateurService {
+	public Administrateur addAdmin(Administrateur a);
 }
