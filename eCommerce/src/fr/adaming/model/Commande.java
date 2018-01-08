@@ -8,14 +8,17 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+
 import javax.persistence.ManyToMany;
+
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-@Table(name="commandes")
+@Table(name = "commandes")
 public class Commande implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,13 +30,14 @@ public class Commande implements Serializable {
 	// la BD est de type sql.Date. C'est pourquoi on doit utiliser temporal
 	private Date dateCommande;
 
-	//Transformation des associations uml en java
+	// Transformation des associations uml en java
 	@ManyToOne
+	@JoinColumn(name = "client_id", referencedColumnName = "idClient")
 	private Client client;
-	
-	@ManyToMany(mappedBy="listeDesCommandes")
+
+	@ManyToMany(mappedBy = "listeDesCommandes")
 	private List<LigneCommande> ListeLigneCommande;
-	
+
 	public Commande() {
 		super();
 	}
@@ -64,8 +68,5 @@ public class Commande implements Serializable {
 	public void setDateCommande(Date dateCommande) {
 		this.dateCommande = dateCommande;
 	}
-	
-	
-	
 
 }
