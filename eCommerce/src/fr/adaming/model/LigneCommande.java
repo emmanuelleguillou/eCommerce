@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -28,9 +29,12 @@ public class LigneCommande implements Serializable {
 	private Produit produit;
 
 	@ManyToMany
+	@JoinTable(name="commandes_lignescommandes", joinColumns=@JoinColumn(name="idLigneCommande"),inverseJoinColumns=@JoinColumn(name="idCommande") )
 	private List<Commande> listeDesCommandes;
 
-	
+	@ManyToOne
+	@JoinColumn(referencedColumnName="idPanier")
+	private Panier panier;
 	
 	// Constructeur pa défaut
 	public LigneCommande() {
