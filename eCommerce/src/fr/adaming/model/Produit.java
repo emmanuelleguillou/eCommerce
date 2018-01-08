@@ -2,6 +2,7 @@ package fr.adaming.model;
 
 import java.io.Serializable;
 import java.util.Arrays;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -32,6 +34,11 @@ public class Produit implements Serializable {
 	@ManyToOne
 	@JoinColumn(referencedColumnName="idCategorie")
 	private Categorie categorie;
+	
+	@OneToMany(mappedBy="produit")
+	private List<LigneCommande> listeLigneCommande;
+		
+	
 
 	// constructeur par défaut
 	public Produit() {

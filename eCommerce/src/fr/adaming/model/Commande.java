@@ -2,11 +2,13 @@ package fr.adaming.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -29,6 +31,8 @@ public class Commande implements Serializable {
 	@ManyToOne
 	private Client client;
 	
+	@ManyToMany(mappedBy="listeDesCommandes")
+	private List<LigneCommande> ListeLigneCommande;
 	
 	public Commande() {
 		super();
