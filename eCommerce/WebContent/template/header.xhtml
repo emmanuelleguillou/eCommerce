@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+
+	<title>Header</title>
+</h:head>
+<h:body>
+
+	<h:form>
+		<p:growl id="messages" />
+
+		<p:menubar>
+			<p:menuitem value="Accueil" url="accueil.xhtml" icon="ui-icon-home" />
+
+
+			<p:submenu label="Clients" icon="ui-icon-person">
+
+				<p:menuitem value="Ajouter un CLient" url="ajouterClient.xhtml"
+					icon="ui-icon-plus" />
+				<p:menuitem value="Modifier un CLient" url="modifierClient.xhtml"
+					icon="ui-icon-wrench" />
+				<p:menuitem value="Supprimer un CLient"
+					url="supprimerClient.xhtml" icon="ui-icon-minus" />
+				<p:menuitem value="Rechercher un client"
+					url="rechercherClient.xhtml" />
+			</p:submenu>
+
+
+		</p:menubar>
+	</h:form>
+
+
+
+</h:body>
+</html>
