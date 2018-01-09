@@ -24,6 +24,7 @@ public class ProduitManagedBean implements Serializable {
 	private List<Produit> listeProduit;
 	private Produit produit;
 	private HttpSession maSession;
+	private int idCategorie;
 
 	public ProduitManagedBean() {
 		this.produit=new Produit();
@@ -110,6 +111,10 @@ public class ProduitManagedBean implements Serializable {
 		} else
 			return "rechercherProduit";
 
+	}
+	
+	public void afficherParCategorie(){
+		this.listeProduit=produitService.getAllPorduitByCategorie(idCategorie);
 	}
 	
 }
