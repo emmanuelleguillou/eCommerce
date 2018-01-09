@@ -7,6 +7,7 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 
@@ -18,7 +19,7 @@ import fr.adaming.model.Categorie;
 import fr.adaming.service.ICategorieService;
 
 @ManagedBean(name = "caMB")
-@RequestScoped
+@ViewScoped
 public class CategorieManagedBean {
 
 	@EJB
@@ -77,9 +78,7 @@ public class CategorieManagedBean {
 		this.categorie = categorieService.addCategorie(this.categorie);
 
 		if (this.categorie.getIdCategorie() != 0) {
-			// recuperer la nouvelle liste de la bd
-			this.listeCategories = categorieService.getAllCategorie();
-			// Mettre a jour la liste dans la session
+			this.getAllCategories();
 			maSession.setAttribute("categoriesList", this.listeCategories);
 			return "accueilAdmin";
 		} else
@@ -87,11 +86,10 @@ public class CategorieManagedBean {
 	}
 
 	public String supprimerCategorie() {
+		System.out.println("ID catégorie :" +this.categorie.getIdCategorie());
 		// Récuperer l'agent dans la session
 		categorieService.deleteCategorie(this.categorie.getIdCategorie());
-		// recuperer la nouvelle liste de la bd
-		this.listeCategories = categorieService.getAllCategorie();
-		// Mettre a jour la liste dans la session
+		this.getAllCategories();
 		maSession.setAttribute("categoriesList", this.listeCategories);
 		return "accueilAdmin";
 	}
@@ -111,6 +109,7 @@ public class CategorieManagedBean {
 	}
 
 	public String rechercherCategorie() {
+		System.out.println("ID Categorie : " +this.categorie.getIdCategorie());
 		this.categorie = categorieService.getCategorie(this.categorie.getIdCategorie());
 		if (this.categorie.getIdCategorie() != 0) {
 			return "rechercherCategorie";
@@ -120,6 +119,7 @@ public class CategorieManagedBean {
 	}
 
 	public String modifLien() {
+		System.out.println("ID Categorie : " +this.categorie.getIdCategorie());
 		// Appel de la methode service
 		Categorie cOut = categorieService.getCategorie(this.categorie.getIdCategorie());
 
@@ -133,21 +133,21 @@ public class CategorieManagedBean {
 		UploadedFile uploadFile = event.getFile();
 		// Recuperer le contenu de l'image en byte array (pixels)
 		byte[] contents = uploadFile.getContents();
+		System.out.println("----------------   " + contents);
 		categorie.setPhoto(contents);
 		// Transforme byte array en string (format basé64)
 		image = "data:image/png;base64," + Base64.encodeBase64String(categorie.getPhoto());
 	}
-	
-	
-	public void getAllCategories(){
-		List<Categorie> listOut=categorieService.getAllCategorie();
-		this.listeCategories= new ArrayList<>();
-		
-		for(Categorie element:listOut){
-			if(element.getPhoto()== null){
+
+	public void getAllCategories() {
+		List<Categorie> listOut = categorieService.getAllCategorie();
+		this.listeCategories = new ArrayList<>();
+
+		for (Categorie element : listOut) {
+			if (element.getPhoto() == null) {
 				element.setImage(null);
-			}else{
-				element.setImage("data:image/png;base64,"+Base64.encodeBase64String(element.getPhoto()));
+			} else {
+				element.setImage("data:image/png;base64," + Base64.encodeBase64String(element.getPhoto()));
 			}
 			this.listeCategories.add(element);
 		}

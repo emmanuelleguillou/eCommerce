@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
 
 <h:head>
@@ -16,7 +16,7 @@
 		Description : <h:inputText value="#{caMB.categorie.description}"></h:inputText>
 		Photo <p:fileUpload mode="advanced" auto="true"
 				fileUploadListener="#{caMB.upload}" update="idImg" />
-			<h:graphicImage id="idImg" value="#{caMB.image}"></h:graphicImage>
+			<h:graphicImage id="idImg" value="#{caMB.image}" width="50" height="50"></h:graphicImage>
 			<p:commandButton value="Ajouter catégorie"
 				action="#{caMB.ajouterCatgeorie}"></p:commandButton>
 		</h:panelGrid>
