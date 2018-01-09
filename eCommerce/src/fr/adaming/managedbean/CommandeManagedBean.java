@@ -1,5 +1,12 @@
 package fr.adaming.managedbean;
 
-public class CommandeManagedBean {
+import java.io.Serializable;
+
+import javax.enterprise.context.RequestScoped;
+import javax.faces.bean.ManagedBean;
+
+@ManagedBean(name="cMB")
+@RequestScoped
+public class CommandeManagedBean implements Serializable{
 
 }
