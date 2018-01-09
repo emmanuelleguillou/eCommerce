@@ -78,6 +78,7 @@ public class ProduitDaoImpl implements IProduitDao {
 	public List<Produit> getAllPorduitByCategorie(int id_c) {
 		// Creation de la requete JPQL
 		String req = "select p from Produit as p where categorie_idCategorie=:cId";
+		System.out.println("ID categorie =" +id_c);
 		// Creer un query
 		Query query = em.createQuery(req);
 		

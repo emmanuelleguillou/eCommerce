@@ -14,24 +14,28 @@ import fr.adaming.model.Categorie;
 import fr.adaming.model.Produit;
 import fr.adaming.service.IProduitService;
 
-@ManagedBean(name="prMB")
+@ManagedBean(name = "prMB")
 @RequestScoped
 public class ProduitManagedBean implements Serializable {
 	@EJB
 	private IProduitService produitService;
-	
+
 	private Categorie categorie;
 	private List<Produit> listeProduit;
 	private Produit produit;
 	private HttpSession maSession;
+	private int idCategorie;
 
 	public ProduitManagedBean() {
-		this.produit=new Produit();
+		this.produit = new Produit();
 	}
-	
+
+
 	@PostConstruct
 	public void init() {
 		this.maSession = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
+		// Recuperer la liste des produit 
+		this.listeProduit =  (List<Produit>) maSession.getAttribute("produitListByCat");
 	}
 
 	public IProduitService getProduitService() {
@@ -65,44 +69,53 @@ public class ProduitManagedBean implements Serializable {
 	public void setProduit(Produit produit) {
 		this.produit = produit;
 	}
-	
-	public String ajouterProduit(){
-		this.produit=produitService.addproduit(this.produit);
-		
+
+	public int getIdCategorie() {
+		return idCategorie;
+	}
+
+	public void setIdCategorie(int idCategorie) {
+		this.idCategorie = idCategorie;
+	}
+
+	public String ajouterProduit() {
+		this.produit = produitService.addproduit(this.produit);
+
 		if (this.produit.getIdProduit() != 0) {
 			// recuperer la nouvelle liste de la bd
 			this.listeProduit = produitService.getAllPorduit();
 			// Mettre a jour la liste dans la session
-			maSession.setAttribute("produitList", this.listeProduit);
+			maSession.setAttribute("produitListByCat", this.listeProduit);
 			return "accueilAdmin";
 		} else
 			return "failure";
 	}
-	
-	public String supprimerProduit() {
-		// Récuperer l'agent dans la session
+
+	public void supprimerProduit() {
+		System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+		
 		produitService.deleteProduit(this.produit.getIdProduit());
 		// recuperer la nouvelle liste de la bd
-		this.listeProduit = produitService.getAllPorduit();
+		this.listeProduit = produitService.getAllPorduitByCategorie(idCategorie);
 		// Mettre a jour la liste dans la session
-		maSession.setAttribute("produitList", this.listeProduit);
-		return "accueilAdmin";
+		maSession.setAttribute("produitListByCat", this.listeProduit);
+		
 	}
-	
-	public String modifierCategorie() {
+
+	public String modifierProduit() {
 		// Récuperer l'agent dans la session
 		this.produit = produitService.updateProduit(this.produit);
 
-		if (this.categorie.getIdCategorie() != 0) {
+		if (this.produit.getIdProduit() != 0) {
 			// recuperer la nouvelle liste de la bd
 			this.listeProduit = produitService.getAllPorduit();
 			// Mettre a jour la liste dans la session
-			maSession.setAttribute("produitList", this.listeProduit);
-			return "accueilAdmin";
+			maSession.setAttribute("produitListByCat", this.listeProduit);
+			return "afficherListeProduit";
 		} else
-			return "accueilAdmin";
+			return "afficherListeProduit";
 	}
-	
+
 	public String rechercherProduit() {
 		this.produit = produitService.getProduit(this.produit.getIdProduit());
 		if (this.produit.getIdProduit() != 0) {
@@ -111,5 +124,21 @@ public class ProduitManagedBean implements Serializable {
 			return "rechercherProduit";
 
 	}
+
+	public String afficherParCategorie() {
+		this.listeProduit = produitService.getAllPorduitByCategorie(idCategorie);
+		// Ajouter la liste dans la session
+		FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("produitListByCat", listeProduit);
+		return "afficherListeProduit";
+	}
 	
+	public String modifLien() {
+		// Appel de la methode service
+		Produit pOut = produitService.getProduit(this.produit.getIdProduit());
+		
+		this.produit=pOut;
+		
+		return"modifProduit";
+	}
+
 }

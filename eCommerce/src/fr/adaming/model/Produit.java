@@ -26,10 +26,16 @@ public class Produit implements Serializable {
 	private String description;
 	private double prix;
 	private int quantite;
+<<<<<<< HEAD
 
 	@Transient
 	private Boolean selectionne;
 
+=======
+	
+	private boolean selectionne;
+	
+>>>>>>> branch 'master' of https://github.com/emmanuelleguillou/eCommerce.git
 	@Lob
 	private byte[] photo;
 
@@ -137,12 +143,13 @@ public class Produit implements Serializable {
 		this.categorie = categorie;
 	}
 
-	// tostring
 	@Override
 	public String toString() {
 		return "Produit [idProduit=" + idProduit + ", designation=" + designation + ", description=" + description
-				+ ", prix=" + prix + ", quantite=" + quantite + ", selectionne=" + selectionne + ", photo="
-				+ Arrays.toString(photo) + "]";
+				+ ", prix=" + prix + ", quantite=" + quantite + ", categorie=" + categorie + "]";
 	}
+
+
+	
 
 }
