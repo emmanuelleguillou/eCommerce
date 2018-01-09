@@ -10,12 +10,15 @@
 	<h:title>Page Ajout</h:title>
 </h:head>
 <h:body>
-	<h:form>
+	<h:form enctype="multipart/form-data">
 		<h:panelGrid columns="2">
 		Nom : <h:inputText value="#{caMB.categorie.nomCategorie}"></h:inputText>
 		Description : <h:inputText value="#{caMB.categorie.description}"></h:inputText>
-		Photo <p:fileUpload value="#{caMB.categorie.photo}" mode="simple" skinSimple="true"/>
-			<p:commandButton value="Ajouter catégorie" action="#{caMB.ajouterCatgeorie}"></p:commandButton>
+		Photo <p:fileUpload mode="advanced" auto="true"
+				fileUploadListener="#{caMB.upload}" update="idImg" />
+			<h:graphicImage id="idImg" value="#{caMB.image}"></h:graphicImage>
+			<p:commandButton value="Ajouter catégorie"
+				action="#{caMB.ajouterCatgeorie}"></p:commandButton>
 		</h:panelGrid>
 
 	</h:form>

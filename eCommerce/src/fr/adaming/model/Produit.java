@@ -13,6 +13,7 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name="produits")
@@ -25,6 +26,7 @@ public class Produit implements Serializable {
 	private String description;
 	private double prix;
 	private int quantite;
+	
 	private boolean selectionne;
 	
 	@Lob
@@ -136,12 +138,13 @@ public class Produit implements Serializable {
 		this.categorie = categorie;
 	}
 
-	// tostring
 	@Override
 	public String toString() {
 		return "Produit [idProduit=" + idProduit + ", designation=" + designation + ", description=" + description
-				+ ", prix=" + prix + ", quantite=" + quantite + ", selectionne=" + selectionne + ", photo="
-				+ Arrays.toString(photo) + "]";
+				+ ", prix=" + prix + ", quantite=" + quantite + ", categorie=" + categorie + "]";
 	}
+
+
+	
 
 }

@@ -41,6 +41,10 @@
 			<h:outputText value="#{cat.description}" />
 		</p:column>
 
+		<p:column headerText="Photo">
+			<h:graphicImage value="#{cat.image}"></h:graphicImage>
+		</p:column>
+
 		<p:column headerText="Operations">
 			<p:commandLink value="supprimer" action="#{caMB.supprimerCategorie}"
 				update="@all">
@@ -53,8 +57,13 @@
 				<f:setPropertyActionListener value="#{cat.idCategorie}"
 					target="#{caMB.categorie.idCategorie}"></f:setPropertyActionListener>
 			</p:commandLink>
-			
-			
+
+			<h:outputText value=" / " />
+			<p:commandLink value="afficher produit"
+				action="#{prMB.afficherParCategorie}">
+				<f:setPropertyActionListener value="#{cat.idCategorie}"
+					target="#{prMB.idCategorie}"></f:setPropertyActionListener>
+			</p:commandLink>
 
 		</p:column>
 
