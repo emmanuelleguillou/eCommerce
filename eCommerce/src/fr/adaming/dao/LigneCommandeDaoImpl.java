@@ -28,6 +28,7 @@ public class LigneCommandeDaoImpl implements ILigneCommandeDao {
 
 	@Override
 	public LigneCommande addLigneCommande(LigneCommande lc) {
+		
 		em.persist(lc);
 		return lc;
 	}
@@ -67,6 +68,15 @@ public class LigneCommandeDaoImpl implements ILigneCommandeDao {
 		List<LigneCommande> listeLigneCommande = query.getResultList();
 
 		return listeLigneCommande;
+	}
+
+	@Override
+	public double calculPrixLigneCommande(LigneCommande lc, Produit p) {
+		System.out.println("lc :"+  lc + "\n" + "p : " +p );
+		System.out.println("p.getprix : " + p.getPrix());
+		double prixTotal = p.getPrix()*lc.getQuantite();
+		System.out.println("prix :" + prixTotal);
+		return prixTotal;
 	}
 
 }

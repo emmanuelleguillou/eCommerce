@@ -25,15 +25,15 @@ public class LigneCommande implements Serializable {
 
 	// transformation uml en java
 	@ManyToOne
-	@JoinColumn(referencedColumnName = "idProduit")
+	@JoinColumn(name="id_produit", referencedColumnName = "idProduit")
 	private Produit produit;
 
 	@ManyToOne
-	@JoinColumn(referencedColumnName = "idCommande")
+	@JoinColumn(name="id_commande", referencedColumnName = "idCommande")
 	Commande commandes;
 
 	@ManyToOne
-	@JoinColumn(referencedColumnName="idPanier")
+	@JoinColumn(name="id_panier" ,referencedColumnName="idPanier")
 	private Panier panier;
 	
 	// Constructeur pa défaut

@@ -19,6 +19,8 @@ public interface ILigneCommandeDao {
 	
 	public List<LigneCommande> getAllLigneCommandeByIdCommande(int idCommande);
 	
+	public double calculPrixLigneCommande(LigneCommande lc, Produit p);
+	
 	
 	
 }

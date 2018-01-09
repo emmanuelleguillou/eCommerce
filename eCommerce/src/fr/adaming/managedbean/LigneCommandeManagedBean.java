@@ -10,6 +10,7 @@ import fr.adaming.model.Commande;
 import fr.adaming.model.LigneCommande;
 import fr.adaming.model.Produit;
 import fr.adaming.service.ILigneCommandeService;
+import fr.adaming.service.IProduitService;
 
 @ManagedBean(name = "lcMB")
 @RequestScoped
@@ -17,6 +18,8 @@ public class LigneCommandeManagedBean implements Serializable {
 
 	@EJB
 	private ILigneCommandeService ligneCommandeService;
+	@EJB
+	private IProduitService produitService;
 
 	LigneCommande ligneCommande;
 	Produit produit;
@@ -26,15 +29,7 @@ public class LigneCommandeManagedBean implements Serializable {
 	public LigneCommandeManagedBean() {
 		this.ligneCommande = new LigneCommande();
 		this.produit = new Produit();
-		this.commande = new Commande();
-	}
 
-	public LigneCommande getLigneCommande() {
-		return ligneCommande;
-	}
-
-	public void setLigneCommande(LigneCommande ligneCommande) {
-		this.ligneCommande = ligneCommande;
 	}
 
 	public Produit getProduit() {
@@ -45,57 +40,73 @@ public class LigneCommandeManagedBean implements Serializable {
 		this.produit = produit;
 	}
 
-	public Commande getCommande() {
-		return commande;
+	public LigneCommande getLigneCommande() {
+		return ligneCommande;
 	}
 
-	public void setCommande(Commande commande) {
-		this.commande = commande;
+	public void setLigneCommande(LigneCommande ligneCommande) {
+		this.ligneCommande = ligneCommande;
 	}
 
 	// Les Méthodes
 
 	public String ajouterLigneCommande() {
-		System.out.println(this.ligneCommande);
+		// récupération du produit par l'id entré
+		this.produit = produitService.getProduit(this.produit.getIdProduit());
+		// spécification du produit pour la ligne de commande
+		this.ligneCommande.setProduit(this.produit);
+		// calcul du prix total
+		this.ligneCommande.setPrix(ligneCommandeService.calculPrixLigneCommande(this.ligneCommande, this.produit));
+		// ajout de la ligne dans la base de données
 		this.ligneCommande = ligneCommandeService.addLigneCommande(this.ligneCommande);
 		System.out.println(this.ligneCommande);
-		if (this.ligneCommande.getIdLigneCommande() != 0){
+		if (this.ligneCommande.getIdLigneCommande() != 0) {
 			return "accueil";
 		} else {
 			return "ajouterLigneCommande";
 		}
-		
+
 	}
 
 	public String modifierLigneCommande() {
+		// récupération du produit par l'id entré
+		this.produit = produitService.getProduit(this.produit.getIdProduit());
+		// spécification du produit pour la ligne de commande
+		this.ligneCommande.setProduit(this.produit);
+		// calcul du prix total
+		this.ligneCommande.setPrix(ligneCommandeService.calculPrixLigneCommande(this.ligneCommande, this.produit));
+		// update de la ligne dans la base de données
 		this.ligneCommande = ligneCommandeService.updateLigneCommande(this.ligneCommande);
-		if (this.ligneCommande != null){
+		if (this.ligneCommande != null) {
 			return "accueil";
 		} else {
 			return "modifierLigneCommande";
 		}
-	
-		}
-	
+
+	}
+
 	public String rechercherLigneCommande() {
 		LigneCommande lcOut = ligneCommandeService.getLigneCommande(this.ligneCommande.getIdLigneCommande());
-		if (lcOut != null){
+		if (lcOut != null) {
 			this.ligneCommande = lcOut;
-			return "accueil";
+			return "rechercherLigneCommande";
 		} else {
 			return "rechercherLigneCommande";
 		}
-	
+
 	}
-	
+
 	public String supprimerLigneCommande() {
+		
 		ligneCommandeService.deleteLigneCommande(this.ligneCommande.getIdLigneCommande());
-		if (this.ligneCommande == null) {
+		LigneCommande lcOut = ligneCommandeService.getLigneCommande(this.ligneCommande.getIdLigneCommande());
+		if (lcOut == null) {
 			return "accueil";
-		}else {
+		} else {
 			return "supprimerLigneCommande";
 		}
-		
+
 	}
 	
+
 }

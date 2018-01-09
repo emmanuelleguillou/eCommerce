@@ -13,32 +13,33 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
-@Table(name="produits")
+@Table(name = "produits")
 public class Produit implements Serializable {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int idProduit;
 	private String designation;
 	private String description;
 	private double prix;
 	private int quantite;
-	private boolean selectionne;
-	
+
+	@Transient
+	private Boolean selectionne;
+
 	@Lob
 	private byte[] photo;
 
 	// trasformation de l'associtation uml en java
 	@ManyToOne
-	@JoinColumn(referencedColumnName="idCategorie")
+	@JoinColumn(referencedColumnName = "idCategorie")
 	private Categorie categorie;
-	
-	@OneToMany(mappedBy="produit")
+
+	@OneToMany(mappedBy = "produit")
 	private List<LigneCommande> listeLigneCommande;
-		
-	
 
 	// constructeur par défaut
 	public Produit() {
@@ -46,8 +47,8 @@ public class Produit implements Serializable {
 		// TODO Auto-generated constructor stub
 	}
 
-	//constructeur sans id
-	public Produit(String designation, String description, double prix, int quantite, boolean selectionne,
+	// constructeur sans id
+	public Produit(String designation, String description, double prix, int quantite, Boolean selectionne,
 			byte[] photo) {
 		super();
 		this.designation = designation;
@@ -58,9 +59,9 @@ public class Produit implements Serializable {
 		this.photo = photo;
 	}
 
-	//COnstructeur avec id
+	// COnstructeur avec id
 	public Produit(int idProduit, String designation, String description, double prix, int quantite,
-			boolean selectionne, byte[] photo) {
+			Boolean selectionne, byte[] photo) {
 		super();
 		this.idProduit = idProduit;
 		this.designation = designation;
@@ -112,11 +113,11 @@ public class Produit implements Serializable {
 		this.quantite = quantite;
 	}
 
-	public boolean isSelectionne() {
+	public Boolean isSelectionne() {
 		return selectionne;
 	}
 
-	public void setSelectionne(boolean selectionne) {
+	public void setSelectionne(Boolean selectionne) {
 		this.selectionne = selectionne;
 	}
 
