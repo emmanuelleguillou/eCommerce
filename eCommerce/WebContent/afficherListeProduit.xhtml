@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
 
 <h:head>
@@ -12,7 +12,7 @@
 
 <h:body>
 
-
+<h:form>
 	<p:dataTable var="pro" value="#{sessionScope.produitListByCat}">
 		<p:column headerText="Id">
 			<h:outputText value="#{pro.idProduit}" />
@@ -35,7 +35,7 @@
 		</p:column>
 
 		<p:column headerText="Operations">
-			<p:commandLink value="supprimer" action="#{prMB.supprimerProduit}"
+			<p:commandLink value="supprimer" action="#{prMB.supprimerProduitByCat}"
 				update="@all">
 				<f:setPropertyActionListener value="#{pro.idProduit}"
 					target="#{prMB.produit.idProduit}"></f:setPropertyActionListener>
@@ -50,6 +50,6 @@
 
 		</p:column>
 	</p:dataTable>
-
+</h:form>
 </h:body>
 </html>
