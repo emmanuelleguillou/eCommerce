@@ -12,6 +12,7 @@
 		<class>fr.adaming.model.Client</class>
 		<class>fr.adaming.model.Panier</class>
 		<class>fr.adaming.model.LigneCommande</class>
+		<class>fr.adaming.model.Produit</class>
 		
 		
 
