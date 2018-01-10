@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
 
 <h:head>
@@ -14,18 +14,19 @@
 	<h:form>
 		<p:menubar>
 			<p:menuitem value="Accueil" url="accueilAdmin.xhtml" />
-			<p:submenu label="Categories" icon="ui-icon-person">
 
-				<p:menuitem value="Ajouter categorie" url="ajoutCategorie.xhtml"
-					icon="ui-icon-plus" />
-				<p:menuitem value="Rechercher categorie"
-					url="rechercherCategorie.xhtml" />
-			</p:submenu>
+			<p:menuitem value="Ajouter categorie" url="ajoutCategorie.xhtml"
+				icon="ui-icon-plus" />
+
+			<p:menuitem value="Afficher les produits"
+				url="afficherProduits.xhtml" />
+
 		</p:menubar>
 		<p:spacer height="10"></p:spacer>
 		<p:separator></p:separator>
 
 	</h:form>
+
 	<h1 style="text-aliign: center; color: red">Liste des categories</h1>
 
 	<p:dataTable var="cat" value="#{sessionScope.categoriesList}">

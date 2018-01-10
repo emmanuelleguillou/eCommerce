@@ -5,14 +5,16 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.codec.binary.Base64;
+import org.primefaces.event.CellEditEvent;
 import org.primefaces.event.FileUploadEvent;
+import org.primefaces.event.RowEditEvent;
 import org.primefaces.model.UploadedFile;
 
 import fr.adaming.model.Categorie;
@@ -86,7 +88,7 @@ public class CategorieManagedBean {
 	}
 
 	public String supprimerCategorie() {
-		System.out.println("ID catégorie :" +this.categorie.getIdCategorie());
+		System.out.println("ID catégorie :" + this.categorie.getIdCategorie());
 		// Récuperer l'agent dans la session
 		categorieService.deleteCategorie(this.categorie.getIdCategorie());
 		this.getAllCategories();
@@ -95,6 +97,7 @@ public class CategorieManagedBean {
 	}
 
 	public String modifierCategorie() {
+		System.out.println("Categorie :" + this.categorie);
 		// Récuperer l'agent dans la session
 		this.categorie = categorieService.updateCategorie(this.categorie);
 
@@ -109,8 +112,9 @@ public class CategorieManagedBean {
 	}
 
 	public String rechercherCategorie() {
-		System.out.println("ID Categorie : " +this.categorie.getIdCategorie());
-		this.categorie = categorieService.getCategorie(this.categorie.getIdCategorie());
+		System.out.println("ID Categorie : " + this.categorie.getIdCategorie());
+		this.categorie = categorieService.getCategorieById(this.categorie.getIdCategorie());
+		System.out.println("Categorie : " + this.categorie);
 		if (this.categorie.getIdCategorie() != 0) {
 			return "rechercherCategorie";
 		} else
@@ -119,9 +123,10 @@ public class CategorieManagedBean {
 	}
 
 	public String modifLien() {
-		System.out.println("ID Categorie : " +this.categorie.getIdCategorie());
+
+		System.out.println("ID Categorie : " + this.categorie.getIdCategorie());
 		// Appel de la methode service
-		Categorie cOut = categorieService.getCategorie(this.categorie.getIdCategorie());
+		Categorie cOut = categorieService.getCategorieById(this.categorie.getIdCategorie());
 
 		this.categorie = cOut;
 

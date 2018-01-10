@@ -107,13 +107,16 @@ public class Categorie implements Serializable {
 		this.listeDesProduits = listeDesProduits;
 	}
 
-	
-	// tostring
 	@Override
 	public String toString() {
 		return "Categorie [idCategorie=" + idCategorie + ", nomCategorie=" + nomCategorie + ", description="
-				+ description + ", photo=" + Arrays.toString(photo) + "]";
+				+ description + "]";
 	}
+
+	
+	
+
+	
 
 
 	

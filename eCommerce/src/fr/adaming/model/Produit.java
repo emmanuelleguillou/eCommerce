@@ -26,16 +26,11 @@ public class Produit implements Serializable {
 	private String description;
 	private double prix;
 	private int quantite;
-<<<<<<< HEAD
 
 	@Transient
-	private Boolean selectionne;
 
-=======
-	
 	private boolean selectionne;
-	
->>>>>>> branch 'master' of https://github.com/emmanuelleguillou/eCommerce.git
+
 	@Lob
 	private byte[] photo;
 
@@ -142,14 +137,19 @@ public class Produit implements Serializable {
 	public void setCategorie(Categorie categorie) {
 		this.categorie = categorie;
 	}
+	
+	public List<LigneCommande> getListeLigneCommande() {
+		return listeLigneCommande;
+	}
+
+	public void setListeLigneCommande(List<LigneCommande> listeLigneCommande) {
+		this.listeLigneCommande = listeLigneCommande;
+	}
 
 	@Override
 	public String toString() {
 		return "Produit [idProduit=" + idProduit + ", designation=" + designation + ", description=" + description
 				+ ", prix=" + prix + ", quantite=" + quantite + ", categorie=" + categorie + "]";
 	}
-
-
-	
 
 }
