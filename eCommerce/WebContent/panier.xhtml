@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<h:title>Page Panier</h:title>
+</h:head>
+
+<h:body>
+
+
+	<p:dataTable var="lc" value="#{lcMB.}">
+		<p:column headerText="Id Ligne Commande">
+			<h:outputText value="#{lc.idLigneCommande}" />
+		</p:column>
+
+		<p:column headerText="ID Produit">
+			<h:outputText value="#{lc.produit.idProduit}" />
+		</p:column>
+
+		<p:column headerText="Quantitén">
+			<h:outputText value="#{lc.quantite}" />
+		</p:column>
+
+		<p:column headerText="Prix">
+			<h:outputText value="#{lc.prix}" />
+		</p:column>
+
+		<p:column headerText="Operations">
+			<p:commandLink value="Valider" action="#{cMB.ajouterCommande}">
+				
+			</p:commandLink>
+
+
+
+		</p:column>
+	</p:dataTable>
+
+</h:body>
+</html>

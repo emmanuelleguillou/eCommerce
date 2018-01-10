@@ -38,8 +38,9 @@ Quantité : <p:inputText id="idQuantite" label="Quantité"
 			<br />
 			<br />
 
-			<h:commandButton style="center" value="Ajouter une ligne commande"
-				action="#{lcMB.ajouterLigneCommande}">
+			<h:commandButton style="center" value="Ajouter une ligne commande" action="#{lcMB.ajouterLigneCommande}" actionListener="#{paMB.envoyerPanier}">
+				<f:setPropertyActionListener value="#{lcMB.ligneCommande.idLigneCommande}"
+					target="#{paMB.ligneCommande.idLigneCommande}" />
 			</h:commandButton>
 
 		</h:panelGrid>

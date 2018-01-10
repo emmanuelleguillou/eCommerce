@@ -38,14 +38,14 @@ public class CommandeServiceImpl implements ICommandeService {
 	}
 
 	@Override
-	public void deleteCommande(int idCommande) {
+	public void deleteCommande(long idCommande) {
 		commandeDao.deleteCommande(idCommande);
 
 	}
 
 	@Override
-	public Commande getCommande(Commande c) {
-		Commande cOut = commandeDao.getCommande(c);
+	public Commande getCommande(long idC) {
+		Commande cOut = commandeDao.getCommande(idC);
 		return cOut;
 	}
 

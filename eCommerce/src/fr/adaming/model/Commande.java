@@ -71,4 +71,22 @@ public class Commande implements Serializable {
 		this.dateCommande = dateCommande;
 	}
 
+	public Client getClient() {
+		return client;
+	}
+
+	public void setClient(Client client) {
+		this.client = client;
+	}
+
+	public List<LigneCommande> getListeLigneCommande() {
+		return ListeLigneCommande;
+	}
+
+	public void setListeLigneCommande(List<LigneCommande> listeLigneCommande) {
+		ListeLigneCommande = listeLigneCommande;
+	}
+	
+	
+
 }

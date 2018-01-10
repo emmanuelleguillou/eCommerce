@@ -39,15 +39,15 @@ public class CommandeDaoImpl implements ICommandeDao {
 	}
 
 	@Override
-	public void deleteCommande(int idCommande) {
+	public void deleteCommande(long idCommande) {
 		Commande cOut = em.find(Commande.class, idCommande);
 		em.remove(cOut);
 
 	}
 
 	@Override
-	public Commande getCommande(Commande c) {
-		Commande cOut = em.find(Commande.class, c);
+	public Commande getCommande(long idC) {
+		Commande cOut = em.find(Commande.class, idC);
 		return cOut;
 	}
 
