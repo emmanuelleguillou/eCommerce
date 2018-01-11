@@ -11,7 +11,7 @@
 </h:head>
 
 <h:body>
-	
+
 	<h:form>
 		<p:menubar>
 			<p:menuitem value="Accueil" url="accueilAdmin.xhtml" />
@@ -48,25 +48,26 @@
 		</p:column>
 
 		<p:column headerText="Operations">
-			<p:commandLink value="supprimer" action="#{caMB.supprimerCategorie}"
-				update="@all">
-				<f:setPropertyActionListener value="#{cat.idCategorie}"
-					target="#{caMB.categorie.idCategorie}"></f:setPropertyActionListener>
-			</p:commandLink>
+			<h:form>
+				<p:commandLink value="supprimer" action="#{caMB.supprimerCategorie}"
+					update="@all">
+					<f:setPropertyActionListener value="#{cat.idCategorie}"
+						target="#{caMB.categorie.idCategorie}"></f:setPropertyActionListener>
+				</p:commandLink>
 
-			<h:outputText value=" / " />
-			<p:commandLink value="modifier" action="#{caMB.modifLien}">
-				<f:setPropertyActionListener value="#{cat.idCategorie}"
-					target="#{caMB.categorie.idCategorie}"></f:setPropertyActionListener>
-			</p:commandLink>
+				<h:outputText value=" / " />
+				<p:commandLink value="modifier" action="#{caMB.modifLien}">
+					<f:setPropertyActionListener value="#{cat.idCategorie}"
+						target="#{caMB.categorie.idCategorie}"></f:setPropertyActionListener>
+				</p:commandLink>
 
-			<h:outputText value=" / " />
-			<p:commandLink value="afficher produit"
-				action="#{prMB.afficherParCategorie}">
-				<f:setPropertyActionListener value="#{cat.idCategorie}"
-					target="#{prMB.idCategorie}"></f:setPropertyActionListener>
-			</p:commandLink>
-
+				<h:outputText value=" / " />
+				<p:commandLink value="afficher produit"
+					action="#{prMB.afficherParCategorie}">
+					<f:setPropertyActionListener value="#{cat.idCategorie}"
+						target="#{prMB.idCategorie}"></f:setPropertyActionListener>
+				</p:commandLink>
+			</h:form>
 		</p:column>
 
 	</p:dataTable>

@@ -17,10 +17,7 @@ import fr.adaming.model.Categorie;
 import fr.adaming.service.IAdministrateurService;
 import fr.adaming.service.ICategorieService;
 
-
-
-
-@ManagedBean(name="adminMB")
+@ManagedBean(name = "adminMB")
 @RequestScoped
 public class AdministrateurManagedBean implements Serializable {
 
@@ -28,18 +25,16 @@ public class AdministrateurManagedBean implements Serializable {
 	private IAdministrateurService administrateurService;
 	@EJB
 	private ICategorieService categorieService;
-	
+
 	private Administrateur administrateur;
 
 	private List<Categorie> listeCategorie;
-	
-	private HttpSession maSession;
-	
-	public AdministrateurManagedBean() {
-		this.administrateur=new Administrateur();
-	}
 
-	
+	private HttpSession maSession;
+
+	public AdministrateurManagedBean() {
+		this.administrateur = new Administrateur();
+	}
 
 	public IAdministrateurService getAdministrateurService() {
 		return administrateurService;
@@ -56,12 +51,12 @@ public class AdministrateurManagedBean implements Serializable {
 	public void setAdministrateur(Administrateur administrateur) {
 		this.administrateur = administrateur;
 	}
-	
-	public String identifierAdmin(){
+
+	public String identifierAdmin() {
 		Administrateur aOut = administrateurService.isExist(this.administrateur);
 
-		if (aOut!=null){
-			
+		if (aOut != null) {
+
 			List<Categorie> listOut = categorieService.getAllCategorie();
 			this.listeCategorie = new ArrayList<>();
 
@@ -73,14 +68,34 @@ public class AdministrateurManagedBean implements Serializable {
 				}
 				this.listeCategorie.add(element);
 			}
-			
+
 			// Ajouter la liste dans la session
-			FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("categoriesList", listeCategorie);
+			FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("categoriesList",
+					listeCategorie);
 			return "accueilAdmin";
-		
-		
-		}else
+
+		} else
 			return "failure";
 	}
-	
+
+	public String testAffichage() {
+
+		List<Categorie> listOut = categorieService.getAllCategorie();
+		this.listeCategorie = new ArrayList<>();
+
+		for (Categorie element : listOut) {
+			if (element.getPhoto() == null) {
+				element.setImage(null);
+			} else {
+				element.setImage("data:image/png;base64," + Base64.encodeBase64String(element.getPhoto()));
+			}
+			this.listeCategorie.add(element);
+		}
+
+		// Ajouter la liste dans la session
+		FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("categoriesList", listeCategorie);
+		return "accueil";
+
+	}
+
 }

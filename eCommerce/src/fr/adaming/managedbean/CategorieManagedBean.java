@@ -87,6 +87,21 @@ public class CategorieManagedBean {
 			return "failure";
 	}
 
+	public String modifierCategorie() {
+		// Récuperer l'agent dans la session
+		this.categorie = categorieService.updateCategorie(this.categorie);
+
+		if (this.categorie.getIdCategorie() != 0) {
+			// recuperer la nouvelle liste de la bd
+			this.getAllCategories();
+			// this.listeCategories = categorieService.getAllCategorie();
+			// Mettre a jour la liste dans la session
+			maSession.setAttribute("categoriesList", this.listeCategories);
+			return "accueilAdmin";
+		} else
+			return "accueilAdmin";
+	}
+
 	public String supprimerCategorie() {
 		System.out.println("ID catégorie :" + this.categorie.getIdCategorie());
 		// Récuperer l'agent dans la session
@@ -94,21 +109,6 @@ public class CategorieManagedBean {
 		this.getAllCategories();
 		maSession.setAttribute("categoriesList", this.listeCategories);
 		return "accueilAdmin";
-	}
-
-	public String modifierCategorie() {
-		System.out.println("Categorie :" + this.categorie);
-		// Récuperer l'agent dans la session
-		this.categorie = categorieService.updateCategorie(this.categorie);
-
-		if (this.categorie.getIdCategorie() != 0) {
-			// recuperer la nouvelle liste de la bd
-			this.listeCategories = categorieService.getAllCategorie();
-			// Mettre a jour la liste dans la session
-			maSession.setAttribute("categoriesList", this.listeCategories);
-			return "accueilAdmin";
-		} else
-			return "accueilAdmin";
 	}
 
 	public String rechercherCategorie() {
@@ -124,12 +124,10 @@ public class CategorieManagedBean {
 
 	public String modifLien() {
 
-		System.out.println("ID Categorie : " + this.categorie.getIdCategorie());
 		// Appel de la methode service
 		Categorie cOut = categorieService.getCategorieById(this.categorie.getIdCategorie());
 
 		this.categorie = cOut;
-
 		return "modifCategorie";
 	}
 

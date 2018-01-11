@@ -8,6 +8,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import fr.adaming.model.Categorie;
+import fr.adaming.model.Client;
 
 @Stateless
 public class CategorieDaoImpl implements ICategorieDao {
@@ -26,18 +27,8 @@ public class CategorieDaoImpl implements ICategorieDao {
 
 	@Override
 	public Categorie getCategorie(int id_c) {
-		String req = "select c from Categorie c where c.idCategorie=:cId ";
-		// Creer query
-		Query query = em.createQuery(req);
-
-		// passage des param
-		query.setParameter("cId", id_c);
-		try {
-			return (Categorie) query.getSingleResult();
-		} catch (Exception e) {
-			return null;
-
-		}
+		Categorie cOut = em.find(Categorie.class, id_c);
+		return cOut;
 	}
 
 	@Override

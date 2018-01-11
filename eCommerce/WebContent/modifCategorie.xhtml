@@ -1,22 +1,26 @@
 <!DOCTYPE html>
 
+
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
 
 <h:head>
-	<h:title>Page Modifier</h:title>
+	<h:title>Page Ajout</h:title>
 </h:head>
 <h:body>
-	<h:form>
+	<h:form enctype="multipart/form-data">
 		<h:panelGrid columns="2">
 		Id : <h:inputText value="#{caMB.categorie.idCategorie}"></h:inputText>
 		Nom : <h:inputText value="#{caMB.categorie.nomCategorie}"></h:inputText>
 		Description : <h:inputText value="#{caMB.categorie.description}"></h:inputText>
-		Photo <p:fileUpload value="#{caMB.categorie.photo}" mode="simple" skinSimple="true"/>
-			<p:commandButton value="Modifier catégorie" action="#{caMB.modifierCategorie}" update="@all"></p:commandButton>
+		Photo <p:fileUpload mode="advanced" auto="true"
+				fileUploadListener="#{caMB.upload}" update="idImg" />
+			<h:graphicImage id="idImg" value="#{caMB.image}" width="50" height="50"></h:graphicImage>
+			<p:commandButton value="Modifier catégorie"
+				action="#{caMB.modifierCategorie}"></p:commandButton>
 		</h:panelGrid>
 
 	</h:form>
