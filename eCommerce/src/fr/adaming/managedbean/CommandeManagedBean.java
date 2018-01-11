@@ -80,8 +80,8 @@ public class CommandeManagedBean implements Serializable {
 		
 		this.listeLigneCommande = ligneCommandeService.getAllLigneCommandeByIdCommande(this.commande.getIdCommande());
 		System.out.println("liste des lc par id commande : " + this.listeLigneCommande);
-		if (this.commande.getIdCommande() != null) {
-			return "pageClient";
+		if (this.commande != null) {
+			return "loginClient";
 		} else {
 			return "panier";
 		}

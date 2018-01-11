@@ -54,7 +54,7 @@ public class CommandeDaoImpl implements ICommandeDao {
 	@Override
 	public List<Commande> gettAllCommande(long idCl) {
 		// construre la requête
-		String req = "SELECT c FROM Commande AS c WHERE idClient=:idCl";
+		String req = "SELECT c FROM Commande AS c WHERE c.client.idClient=:idCl";
 
 		// création du query
 		Query query = em.createQuery(req);

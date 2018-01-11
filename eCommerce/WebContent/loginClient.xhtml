@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<h:title>Page Login</h:title>
+</h:head>
+<h:body>
+
+	<h1
+		style="text-align: center; color: red; margin-top: 50px; margin-left: -800px">Formulaire
+		de connexion d'un client</h1>
+	<h:form>
+		<h:panelGrid columns="2">
+		Nom : <h:inputText value="#{clMB.client.nomClient}"></h:inputText>
+			<br />
+		Mail : <h:inputText value="#{clMB.client.email}"></h:inputText>
+
+			<h:commandButton style="center" value="Login"
+				action="#{clMB.rechercherClient}" />
+		</h:panelGrid>
+
+	</h:form>
+
+	<br />
+
+	<h1
+		style="text-align: center; color: red; margin-top: 50px; margin-left: -800px">Formulaire
+		d'ajout d'un client</h1>
+
+	<h:form
+		style="background-color: white ;width: 400px; margin-left: 75px ; margin-top:50px">
+		<h:panelGrid columns="2">
+
+Nom : <p:inputText id="idNom" label="Nom"
+				value="#{clMB.client.nomClient}" required="true"></p:inputText>
+
+			<br />
+
+Adresse : <p:inputText id="idAdresse" label="Adresse"
+				value="#{clMB.client.adresseClient}" required="true"></p:inputText>
+
+			<br />
+
+Email : <p:inputText id="idEmail" label="Email"
+				value="#{clMB.client.email}" required="true"></p:inputText>
+
+			<br />
+
+Téléphone : <p:inputText id="idTelephone" label="Telephone"
+				value="#{clMB.client.tel}" required="true"></p:inputText>
+
+			<br />
+			<br />
+
+			<h:commandButton style="center" value="Ajouter un client"
+				action="#{clMB.ajouterClient}" />
+
+		</h:panelGrid>
+
+
+	</h:form>
+
+
+</h:body>
+</html>

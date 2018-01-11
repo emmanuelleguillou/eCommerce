@@ -10,7 +10,7 @@ public interface IClientService {
 
 	public void deleteClient(long idCl);
 
-	public Client getClientById(long idCl);
+	public Client getClientByNomEmail(String nom, String email);
 
 	public Client updateClient(Client cl);
 

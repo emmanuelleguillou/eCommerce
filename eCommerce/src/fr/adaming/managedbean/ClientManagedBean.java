@@ -58,9 +58,9 @@ public class ClientManagedBean implements Serializable {
 		this.client = clientService.addClient(this.client);
 
 		if (this.client.getIdClient() != 0) {
-			return "accueil";
+			return "accueilClient";
 		} else {
-			return "#";
+			return "loginClient";
 		}
 	}
 
@@ -75,12 +75,12 @@ public class ClientManagedBean implements Serializable {
 	}
 
 	public String rechercherClient() {
-		Client clOut = clientService.getClientById(this.client.getIdClient());
+		Client clOut = clientService.getClientByNomEmail(this.client.getNomClient(), this.client.getEmail());
 		if (clOut != null) {
 			this.client = clOut;
-			return "rechercherClient";
+			return "accueilClient";
 		} else {
-			return "rechercherClient";
+			return "loginClient";
 		}
 
 	}

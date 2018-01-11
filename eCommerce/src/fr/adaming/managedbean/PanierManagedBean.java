@@ -1,5 +1,7 @@
 package fr.adaming.managedbean;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,6 +12,10 @@ import javax.enterprise.context.SessionScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 import javax.swing.plaf.synth.SynthSpinnerUI;
+
+import com.lowagie.text.Document;
+import com.lowagie.text.DocumentException;
+import com.lowagie.text.pdf.PdfWriter;
 
 import fr.adaming.model.LigneCommande;
 import fr.adaming.model.Panier;
@@ -25,6 +31,7 @@ public class PanierManagedBean implements Serializable {
 	private Panier panier;
 	private LigneCommande ligneCommande;
 	private List<LigneCommande> listeLignecommande;
+	
 
 	// constructeur par défaut
 	public PanierManagedBean() {
@@ -61,16 +68,17 @@ public class PanierManagedBean implements Serializable {
 
 	// Les méthodes
 	public void envoyerPanier() {
+		// liste des lignes commandes
 		List<LigneCommande> listeLCPanier = new ArrayList<LigneCommande>();
 		List<LigneCommande> liste = ligneCommandeService.getAllLignesCommandes();
-		System.out.println("liste des lignes commandes : \n" );
+		System.out.println("liste des lignes commandes : \n");
 		liste.forEach(System.out::println);
 		for (LigneCommande lc : liste) {
 			listeLCPanier.add(lc);
 			listeLCPanier.forEach(System.out::println);
 
 			this.listeLignecommande = listeLCPanier;
-			
+
 			if (this.listeLignecommande != null) {
 				// passer la liste dans la session
 				FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("listeLCPanier",
