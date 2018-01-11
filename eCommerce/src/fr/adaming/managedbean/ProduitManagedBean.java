@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 
 import fr.adaming.model.Categorie;
 import fr.adaming.model.Produit;
+import fr.adaming.service.ICategorieService;
 import fr.adaming.service.IProduitService;
 
 @ManagedBean(name = "prMB")
@@ -20,6 +21,8 @@ import fr.adaming.service.IProduitService;
 public class ProduitManagedBean implements Serializable {
 	@EJB
 	private IProduitService produitService;
+	@EJB
+	private ICategorieService categorieService;
 
 	private Categorie categorie;
 	private List<Produit> listeProduit;
@@ -93,10 +96,14 @@ public class ProduitManagedBean implements Serializable {
 
 	public String ajouterProduitByCat() {
 		//Recuperer la categorie
-		this.produit = produitService.addproduit(this.produit);
+		
 		int idCat=(int) maSession.getAttribute("idCat");
-		//Ajouter la categorie aux produits
-		//Creer une categorie juste avec l'id ? modif le constructeur
+		System.out.println("IDCATEGORIE :" +idCat);
+		this.produit.setCategorie(categorieService.getCategorieById(idCat));
+		System.out.println("Je suis arrivé la");
+		this.produit.setSelectionne(false);
+		this.produit = produitService.addproduit(this.produit);
+		
 		if (this.produit.getIdProduit() != 0) {
 			// recuperer la nouvelle liste de la bd
 			this.listeProduit = produitService.getAllPorduit();
@@ -120,13 +127,15 @@ public class ProduitManagedBean implements Serializable {
 		return "afficherListeProduit";
 	}
 
-	public String modifierProduit() { //Le produit perd son IDCategorie lors de la modif 
+	public String modifierProduit() {  
 		// Récuperer l'agent dans la session
-		//this.produit.setCategorie(this.categorie);
+		int idCat=(int) maSession.getAttribute("idCat");
+		System.out.println("IDCATEGORIE :" +idCat);
+		this.produit.setCategorie(categorieService.getCategorieById(idCat));
 		this.produit = produitService.updateProduit(this.produit);
 		
 		if (this.produit.getIdProduit() != 0) {
-			int idCat=(int) maSession.getAttribute("idCat");
+			 idCat=(int) maSession.getAttribute("idCat");
 			// recuperer la nouvelle liste de la bd
 			this.listeProduit = produitService.getAllPorduitByCategorie(idCat);
 			// Mettre a jour la liste dans la session

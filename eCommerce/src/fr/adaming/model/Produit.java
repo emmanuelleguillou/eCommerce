@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -28,8 +29,8 @@ public class Produit implements Serializable {
 	private int quantite;
 
 	@Transient
-
-	private boolean selectionne;
+	@Column(columnDefinition = "boolean default false")
+	private boolean selectionne=false;
 
 	@Lob
 	private byte[] photo;
@@ -114,11 +115,11 @@ public class Produit implements Serializable {
 		this.quantite = quantite;
 	}
 
-	public Boolean isSelectionne() {
+	public boolean isSelectionne() {
 		return selectionne;
 	}
 
-	public void setSelectionne(Boolean selectionne) {
+	public void setSelectionne(boolean selectionne) {
 		this.selectionne = selectionne;
 	}
 
