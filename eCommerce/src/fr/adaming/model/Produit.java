@@ -28,7 +28,7 @@ public class Produit implements Serializable {
 	private double prix;
 	private int quantite;
 
-	@Transient
+	
 	@Column(columnDefinition = "boolean default false")
 	private boolean selectionne=false;
 
