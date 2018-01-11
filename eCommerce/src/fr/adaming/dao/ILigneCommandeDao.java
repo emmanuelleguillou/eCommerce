@@ -17,10 +17,11 @@ public interface ILigneCommandeDao {
 	
 	public LigneCommande getLigneCommande(int idLigneCommande);
 	
-	public List<LigneCommande> getAllLigneCommandeByIdCommande(int idCommande);
+	public List<LigneCommande> getAllLigneCommandeByIdCommande(long idCommande);
 	
 	public double calculPrixLigneCommande(LigneCommande lc, Produit p);
 	
+	public List<LigneCommande> getAllLignesCommandes();
 	
 	
 }

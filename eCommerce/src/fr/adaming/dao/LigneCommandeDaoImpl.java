@@ -28,7 +28,7 @@ public class LigneCommandeDaoImpl implements ILigneCommandeDao {
 
 	@Override
 	public LigneCommande addLigneCommande(LigneCommande lc) {
-		
+
 		em.persist(lc);
 		return lc;
 	}
@@ -54,9 +54,9 @@ public class LigneCommandeDaoImpl implements ILigneCommandeDao {
 	}
 
 	@Override
-	public List<LigneCommande> getAllLigneCommandeByIdCommande(int idCommande) {
+	public List<LigneCommande> getAllLigneCommandeByIdCommande(long idCommande) {
 		// construre la requête
-		String req = "SELECT lc FROM LigneCommande AS lc WHERE idCommande=:idC";
+		String req = "SELECT lc FROM LigneCommande AS lc WHERE lc.commandes.idCommande=:idC";
 
 		// création du query
 		Query query = em.createQuery(req);
@@ -72,11 +72,29 @@ public class LigneCommandeDaoImpl implements ILigneCommandeDao {
 
 	@Override
 	public double calculPrixLigneCommande(LigneCommande lc, Produit p) {
-		System.out.println("lc :"+  lc + "\n" + "p : " +p );
+		System.out.println("lc :" + lc + "\n" + "p : " + p);
 		System.out.println("p.getprix : " + p.getPrix());
-		double prixTotal = p.getPrix()*lc.getQuantite();
+		double prixTotal = p.getPrix() * lc.getQuantite();
 		System.out.println("prix :" + prixTotal);
 		return prixTotal;
+	}
+
+	@Override
+	public List<LigneCommande> getAllLignesCommandes() {
+		// construre la requête
+		String req = "SELECT lc FROM LigneCommande AS lc WHERE lc.commandes IS NULL";
+		Query query = em.createQuery(req);
+		System.out.println("query : " + query);
+
+		// mettre les parametres
+		// query.setParameter("idCommande", null);
+		// System.out.println("query : " + query);
+		System.out.println("liste avant evoyer liste : " + query.getResultList());
+		// création de la nouvelle liste des lignes commandes
+		List<LigneCommande> listeLigneCommande = query.getResultList();
+		System.out.println("liste : " + listeLigneCommande);
+
+		return listeLigneCommande;
 	}
 
 }

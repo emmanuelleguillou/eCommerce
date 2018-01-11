@@ -1,9 +1,12 @@
 package fr.adaming.managedbean;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.bean.ManagedBean;
 
 import fr.adaming.model.Commande;
@@ -13,7 +16,7 @@ import fr.adaming.service.ILigneCommandeService;
 import fr.adaming.service.IProduitService;
 
 @ManagedBean(name = "lcMB")
-@RequestScoped
+@SessionScoped
 public class LigneCommandeManagedBean implements Serializable {
 
 	@EJB

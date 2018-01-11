@@ -12,33 +12,29 @@
 
 <h:body>
 
+	<h:form>
+		<p:dataTable var="lc" value="#{sessionScope.listeLCPanier}">
+			<p:column headerText="Id Ligne Commande">
+				<h:outputText value="#{lc.idLigneCommande}" />
+			</p:column>
 
-	<p:dataTable var="lc" value="#{lcMB.}">
-		<p:column headerText="Id Ligne Commande">
-			<h:outputText value="#{lc.idLigneCommande}" />
-		</p:column>
+			<p:column headerText="ID Produit">
+				<h:outputText value="#{lc.produit.idProduit}" />
+			</p:column>
 
-		<p:column headerText="ID Produit">
-			<h:outputText value="#{lc.produit.idProduit}" />
-		</p:column>
+			<p:column headerText="Quantitén">
+				<h:outputText value="#{lc.quantite}" />
+			</p:column>
 
-		<p:column headerText="Quantitén">
-			<h:outputText value="#{lc.quantite}" />
-		</p:column>
+			<p:column headerText="Prix">
+				<h:outputText value="#{lc.prix}" />
+			</p:column>
 
-		<p:column headerText="Prix">
-			<h:outputText value="#{lc.prix}" />
-		</p:column>
+		</p:dataTable>
 
-		<p:column headerText="Operations">
-			<p:commandLink value="Valider" action="#{cMB.ajouterCommande}">
-				
-			</p:commandLink>
+		<h:commandButton style="center" value="Balider la commande"
+			action="#{cMB.ajouterComande}" />
 
-
-
-		</p:column>
-	</p:dataTable>
-
+	</h:form>
 </h:body>
 </html>

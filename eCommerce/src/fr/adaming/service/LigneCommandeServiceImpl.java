@@ -50,7 +50,7 @@ public class LigneCommandeServiceImpl implements ILigneCommandeService {
 	}
 
 	@Override
-	public List<LigneCommande> getAllLigneCommandeByIdCommande(int idCommande) {
+	public List<LigneCommande> getAllLigneCommandeByIdCommande(long idCommande) {
 		List<LigneCommande> listeOut = ligneCommandeDao.getAllLigneCommandeByIdCommande(idCommande);
 		return listeOut;
 	}
@@ -59,6 +59,12 @@ public class LigneCommandeServiceImpl implements ILigneCommandeService {
 	public double calculPrixLigneCommande(LigneCommande lc, Produit p) {
 		double prix = ligneCommandeDao.calculPrixLigneCommande(lc, p);
 		return prix;
+	}
+
+	@Override
+	public List<LigneCommande> getAllLignesCommandes() {
+		List<LigneCommande> listeOut = ligneCommandeDao.getAllLignesCommandes();
+		return listeOut;
 	}
 
 }

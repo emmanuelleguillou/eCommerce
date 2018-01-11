@@ -62,16 +62,20 @@ public class PanierManagedBean implements Serializable {
 	// Les méthodes
 	public void envoyerPanier() {
 		List<LigneCommande> listeLCPanier = new ArrayList<LigneCommande>();
-
-		for (LigneCommande element : listeLCPanier) {
-			element = ligneCommandeService.getLigneCommande(this.ligneCommande.getIdLigneCommande());
-			listeLCPanier.add(element);
+		List<LigneCommande> liste = ligneCommandeService.getAllLignesCommandes();
+		System.out.println("liste des lignes commandes : \n" );
+		liste.forEach(System.out::println);
+		for (LigneCommande lc : liste) {
+			listeLCPanier.add(lc);
 			listeLCPanier.forEach(System.out::println);
+
 			this.listeLignecommande = listeLCPanier;
+			
 			if (this.listeLignecommande != null) {
 				// passer la liste dans la session
 				FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("listeLCPanier",
 						this.listeLignecommande);
+				System.out.println("liste session : " + this.listeLignecommande);
 
 			}
 		}
