@@ -15,6 +15,8 @@ import javax.swing.plaf.synth.SynthSpinnerUI;
 
 import com.lowagie.text.Document;
 import com.lowagie.text.DocumentException;
+import com.lowagie.text.pdf.PdfLister;
+import com.lowagie.text.pdf.PdfTable;
 import com.lowagie.text.pdf.PdfWriter;
 
 import fr.adaming.model.LigneCommande;
@@ -31,7 +33,7 @@ public class PanierManagedBean implements Serializable {
 	private Panier panier;
 	private LigneCommande ligneCommande;
 	private List<LigneCommande> listeLignecommande;
-	
+//	public static final String chemin = "C:/Users/PDT/testPdf.pdf";
 
 	// constructeur par défaut
 	public PanierManagedBean() {
@@ -68,17 +70,27 @@ public class PanierManagedBean implements Serializable {
 
 	// Les méthodes
 	public void envoyerPanier() {
-		// liste des lignes commandes
-		List<LigneCommande> listeLCPanier = new ArrayList<LigneCommande>();
-		List<LigneCommande> liste = ligneCommandeService.getAllLignesCommandes();
-		System.out.println("liste des lignes commandes : \n");
-		liste.forEach(System.out::println);
-		for (LigneCommande lc : liste) {
-			listeLCPanier.add(lc);
-			listeLCPanier.forEach(System.out::println);
+		//Récupération de toutes les lignes de commandes associées à un idCommande null
+		this.listeLignecommande = ligneCommandeService.getAllLignesCommandes();
+		
+		
+	
 
-			this.listeLignecommande = listeLCPanier;
-
+			// //pdf
+			// PdfTable document = new pdfta
+			// try {
+			// PdfWriter.getInstance(document, new FileOutputStream(chemin));
+			// document.open();
+			//
+			// document.add();
+			// } catch (IOException ioe) {
+			// ioe.printStackTrace();
+			// } catch (DocumentException de) {
+			// de.printStackTrace();
+			// } finally {
+			// document.close();
+			// }
+			
 			if (this.listeLignecommande != null) {
 				// passer la liste dans la session
 				FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("listeLCPanier",
@@ -87,7 +99,10 @@ public class PanierManagedBean implements Serializable {
 
 			}
 		}
+		
+
+		
 
 	}
 
-}
+

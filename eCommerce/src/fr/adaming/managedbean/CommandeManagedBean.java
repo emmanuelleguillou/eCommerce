@@ -6,6 +6,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.bean.ManagedBean;
+import javax.faces.context.FacesContext;
 
 import fr.adaming.model.Client;
 import fr.adaming.model.Commande;
@@ -58,7 +59,7 @@ public class CommandeManagedBean implements Serializable {
 	public void setListeLigneCommande(List<LigneCommande> listeLigneCommande) {
 		this.listeLigneCommande = listeLigneCommande;
 	}
-	
+
 	public LigneCommande getLigneCommande() {
 		return ligneCommande;
 	}
@@ -66,18 +67,23 @@ public class CommandeManagedBean implements Serializable {
 	public void setLigneCommande(LigneCommande ligneCommande) {
 		this.ligneCommande = ligneCommande;
 	}
-	
 
 	// Les méthodes
 	public String ajouterComande() {
+		//Créer une commande
 		this.commande = commandeService.addCommande(this.commande);
-		this.listeLigneCommande=ligneCommandeService.getAllLignesCommandes();
-		for(LigneCommande lc : this.listeLigneCommande) {
+		
+		//récupérer toutes les lignes de commandes avec un idCommande null
+		this.listeLigneCommande = ligneCommandeService.getAllLignesCommandes();
+		
+		//Donner à chaque ligne de commande l'id de la commande créée
+		for (LigneCommande lc : this.listeLigneCommande) {
 			lc.setCommandes(this.commande);
 			this.ligneCommande = ligneCommandeService.updateLigneCommande(lc);
 			System.out.println("commande de la lc : " + this.ligneCommande);
 		}
-		
+
+		//générer une nouvelle liste des ligne commande qui sont associées à la commande
 		this.listeLigneCommande = ligneCommandeService.getAllLigneCommandeByIdCommande(this.commande.getIdCommande());
 		System.out.println("liste des lc par id commande : " + this.listeLigneCommande);
 		if (this.commande != null) {
@@ -105,17 +111,24 @@ public class CommandeManagedBean implements Serializable {
 			return "rechercherCommande";
 		}
 	}
-	
+
 	public String supprimerCommande() {
 		commandeService.deleteCommande(this.commande.getIdCommande());
 		Commande cOut = commandeService.getCommande(this.commande.getIdCommande());
-		
+
 		if (cOut == null) {
 			return "pageClient";
 		} else {
 			return "suprimerCommande";
 		}
 	}
+
+	public String rechercherToutesCommandes() {
+		List<Commande> listeCommande = commandeService.gettAllCommande(this.client.getIdClient());
+		//passer la liste dans la session
+		FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("listeCommandes",
+				listeCommande);
+		return "#";
 	
-	
+	}
 }

@@ -6,6 +6,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.bean.ManagedBean;
+import javax.faces.context.FacesContext;
 
 import fr.adaming.model.Client;
 import fr.adaming.model.Commande;
@@ -56,6 +57,7 @@ public class ClientManagedBean implements Serializable {
 
 	public String ajouterClient() {
 		this.client = clientService.addClient(this.client);
+		FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("client", this.client);
 
 		if (this.client.getIdClient() != 0) {
 			return "accueilClient";
@@ -78,6 +80,7 @@ public class ClientManagedBean implements Serializable {
 		Client clOut = clientService.getClientByNomEmail(this.client.getNomClient(), this.client.getEmail());
 		if (clOut != null) {
 			this.client = clOut;
+			FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("client", this.client);
 			return "accueilClient";
 		} else {
 			return "loginClient";
@@ -93,6 +96,11 @@ public class ClientManagedBean implements Serializable {
 			return "modifierClient";
 		}
 
+	}
+
+	public void deconnexionClient() {
+		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+		
 	}
 
 }
