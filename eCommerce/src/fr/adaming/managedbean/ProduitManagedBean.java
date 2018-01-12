@@ -15,10 +15,11 @@ import javax.servlet.http.HttpSession;
 import fr.adaming.model.Categorie;
 import fr.adaming.model.Produit;
 import fr.adaming.service.ICategorieService;
+import fr.adaming.service.ILigneCommandeService;
 import fr.adaming.service.IProduitService;
 
 @ManagedBean(name = "prMB")
-@ViewScoped
+@RequestScoped
 public class ProduitManagedBean implements Serializable {
 	@EJB
 	private IProduitService produitService;
@@ -29,9 +30,10 @@ public class ProduitManagedBean implements Serializable {
 	private List<Produit> listeProduit;
 	private List<Produit> listeProduitAll;
 	private Produit produit;
+	private int nbProduit;
 	private HttpSession maSession;
 	private int idCategorie;
-	private int nbProduit=0;
+
 
 	public ProduitManagedBean() {
 		this.produit = new Produit();
@@ -194,18 +196,14 @@ public class ProduitManagedBean implements Serializable {
 		return "afficherListeProduitClient";
 	}
 	
-	public String ajouter() {
-		this.nbProduit++;
-		System.out.println("Nombre produit :" +nbProduit);
-		return "afficherListeProduitClient";
-	}
-	
-	public String enlever() {
-		this.nbProduit--;
-		if(this.nbProduit<=0){
-			this.nbProduit=0;
-		}
-		System.out.println("Nombre produit :" +nbProduit);
+	public String valide(){
+		
+		System.out.println("IDPRODUIT:" +this.produit.getIdProduit());
+		Produit pOut = produitService.getProduit(this.produit.getIdProduit());
+		
+		System.out.println(pOut);
+		
+		System.out.println(" NB PRODUIT :" +this.getNbProduit());
 		return "afficherListeProduitClient";
 	}
 

@@ -9,23 +9,20 @@
 <h:head>
 
 	<title>Page accueil</title>
-
+<f:metadata>
+<!-- Pour appeler la methode au chargement -->
+   <f:event listener="#{adminMB.testAffichage}" type="preRenderView"></f:event> 
+</f:metadata>
 
 </h:head>
 
-<h:body on-load="#{adminMB.testAffichage}">
+<h:body >
+	
 	<!-- Insertion du header -->
 	<ui:insert name="header"></ui:insert>
 	<ui:include src="template/header.xhtml"></ui:include>
 
-	<h1 style="text-aliign: center; color: red">Liste des categories</h1>
-
-
-	<h:form>
-		<p:commandLink value="afficher categorie"
-			action="#{adminMB.testAffichage}" update="@all">
-		</p:commandLink>
-	</h:form>
+	<h1 style="text-align: center; color: red">Liste des categories</h1>
 
 
 	<p:dataTable var="cat" value="#{sessionScope.categoriesList}">

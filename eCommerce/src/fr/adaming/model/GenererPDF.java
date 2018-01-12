@@ -16,8 +16,8 @@ public class GenererPDF {
 		
 		Document document = new Document();
 		
-		try {
-			PdfWriter.getInstance(document, new FileOutputStream(chemin));
-		}
+//		try {
+//			PdfWriter.getInstance(document, new FileOutputStream(chemin));
+//		}
 	}
 }

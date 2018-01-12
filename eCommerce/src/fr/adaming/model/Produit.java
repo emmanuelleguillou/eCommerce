@@ -28,6 +28,8 @@ public class Produit implements Serializable {
 	private double prix;
 	private int quantite;
 
+	@Transient
+	private int nbProduit;
 	
 	@Column(columnDefinition = "boolean default false")
 	private boolean selectionne=false;
@@ -145,6 +147,16 @@ public class Produit implements Serializable {
 
 	public void setListeLigneCommande(List<LigneCommande> listeLigneCommande) {
 		this.listeLigneCommande = listeLigneCommande;
+	}
+	
+	
+
+	public int getNbProduit() {
+		return nbProduit;
+	}
+
+	public void setNbProduit(int nbProduit) {
+		this.nbProduit = nbProduit;
 	}
 
 	@Override

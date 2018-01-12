@@ -5,9 +5,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.EJB;
-import javax.enterprise.context.RequestScoped;
-import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 
 import fr.adaming.model.Commande;
 import fr.adaming.model.LigneCommande;
@@ -64,7 +65,8 @@ public class LigneCommandeManagedBean implements Serializable {
 		this.ligneCommande = ligneCommandeService.addLigneCommande(this.ligneCommande);
 		System.out.println(this.ligneCommande);
 		if (this.ligneCommande.getIdLigneCommande() != 0) {
-			return "accueil";
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Success",  "Ligne de commande ajoutée") );
+			return "afficherListeProduitClient";
 		} else {
 			return "ajouterLigneCommande";
 		}

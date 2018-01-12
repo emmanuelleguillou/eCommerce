@@ -11,24 +11,12 @@
 </h:head>
 
 <h:body>
+<!-- Insertion du header -->
+	<ui:insert name="header"></ui:insert>
+	<ui:include src="template/headerAdmin.xhtml"></ui:include>
+	
 
-	<h:form>
-		<p:menubar>
-			<p:menuitem value="Accueil" url="accueilAdmin.xhtml" />
-
-			<p:menuitem value="Ajouter categorie" url="ajoutCategorie.xhtml"
-				icon="ui-icon-plus" />
-
-			<p:menuitem value="Afficher les produits"
-				url="afficherProduits.xhtml" />
-
-		</p:menubar>
-		<p:spacer height="10"></p:spacer>
-		<p:separator></p:separator>
-
-	</h:form>
-
-	<h1 style="text-aliign: center; color: red">Liste des categories</h1>
+	<h1 style="text-align: center; color: red">Liste des categories</h1>
 
 	<p:dataTable var="cat" value="#{sessionScope.categoriesList}">
 		<p:column headerText="Id">

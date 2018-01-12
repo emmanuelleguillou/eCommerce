@@ -11,7 +11,12 @@
 </h:head>
 
 <h:body>
-
+	<!-- Insertion du header -->
+	<ui:insert name="header"></ui:insert>
+	<ui:include src="template/headerAdmin.xhtml"></ui:include>
+	
+	<h1 style="text-align: center; color: red">Liste des produits de la categorie <h:outputText value="#{sessionScope.idCat}"/> </h1>
+	
 	<h:form>
 		<p:dataTable var="pro" value="#{sessionScope.produitListByCat}">
 			<p:column headerText="Id">
@@ -50,9 +55,8 @@
 
 			</p:column>
 		</p:dataTable>
-		
-		<h:commandLink value="Ajouter Produit"
-			action="ajouterProduit.xhtml"></h:commandLink>
+
+		<h:commandLink value="Ajouter Produit" action="ajouterProduit.xhtml"></h:commandLink>
 
 	</h:form>
 </h:body>
