@@ -7,7 +7,7 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <h:head>
-	<h:title>Page Accueil Admin</h:title>
+	<h:title>Page Accueil</h:title>
 </h:head>
 
 <h:body>
@@ -35,24 +35,20 @@
 			</p:column>
 
 			<p:column headerText="Operations">
-				<p:commandLink value="supprimer"
-					action="#{prMB.supprimerProduitByCat}" update="@all">
-					<f:setPropertyActionListener value="#{pro.idProduit}"
-						target="#{prMB.produit.idProduit}"></f:setPropertyActionListener>
-				</p:commandLink>
 
-				<h:outputText value=" / " />
-				<p:commandLink value="modifier" action="#{prMB.modifLien}">
-					<f:setPropertyActionListener value="#{pro.idProduit}"
-						target="#{prMB.produit.idProduit}"></f:setPropertyActionListener>
-				</p:commandLink>
+				<p:button icon="ui-icon-plus" action="#{prMB.ajouter}" update="@all">
+				</p:button>
 
+				<h:outputText value="#{prMB.nbProduit}" />
+
+				<p:button icon="ui-icon-minus" action="#{prMB.enlever}" update="@all">
+				</p:button>
+
+				<p:button icon="ui-icon-validate">
+				</p:button>
 
 			</p:column>
 		</p:dataTable>
-		
-		<h:commandLink value="Ajouter Produit"
-			action="ajouterProduit.xhtml"></h:commandLink>
 
 	</h:form>
 </h:body>

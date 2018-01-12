@@ -81,6 +81,9 @@ public class AdministrateurManagedBean implements Serializable {
 	public String testAffichage() {
 
 		List<Categorie> listOut = categorieService.getAllCategorie();
+		for (Categorie categorie : listOut) {
+			System.out.println(categorie);
+		}
 		this.listeCategorie = new ArrayList<>();
 
 		for (Categorie element : listOut) {

@@ -13,12 +13,20 @@
 
 </h:head>
 
-<h:body onload="#{adMB.testAffichage}">
-<!-- Insertion du header -->
+<h:body on-load="#{adminMB.testAffichage}">
+	<!-- Insertion du header -->
 	<ui:insert name="header"></ui:insert>
 	<ui:include src="template/header.xhtml"></ui:include>
 
-<h1 style="text-aliign: center; color: red">Liste des categories</h1>
+	<h1 style="text-aliign: center; color: red">Liste des categories</h1>
+
+
+	<h:form>
+		<p:commandLink value="afficher categorie"
+			action="#{adminMB.testAffichage}" update="@all">
+		</p:commandLink>
+	</h:form>
+
 
 	<p:dataTable var="cat" value="#{sessionScope.categoriesList}">
 		<p:column headerText="Id">
@@ -41,7 +49,7 @@
 			<h:form>
 
 				<p:commandLink value="afficher produit"
-					action="#{prMB.afficherParCategorie}">
+					action="#{prMB.afficherParCategorieClient}">
 					<f:setPropertyActionListener value="#{cat.idCategorie}"
 						target="#{prMB.idCategorie}"></f:setPropertyActionListener>
 				</p:commandLink>
@@ -49,9 +57,5 @@
 		</p:column>
 
 	</p:dataTable>
-
-
-
-
 </h:body>
 </html>

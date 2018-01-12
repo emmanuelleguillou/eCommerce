@@ -7,6 +7,7 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
@@ -17,7 +18,7 @@ import fr.adaming.service.ICategorieService;
 import fr.adaming.service.IProduitService;
 
 @ManagedBean(name = "prMB")
-@RequestScoped
+@ViewScoped
 public class ProduitManagedBean implements Serializable {
 	@EJB
 	private IProduitService produitService;
@@ -30,6 +31,7 @@ public class ProduitManagedBean implements Serializable {
 	private Produit produit;
 	private HttpSession maSession;
 	private int idCategorie;
+	private int nbProduit=0;
 
 	public ProduitManagedBean() {
 		this.produit = new Produit();
@@ -93,14 +95,20 @@ public class ProduitManagedBean implements Serializable {
 		this.listeProduitAll = listeProduitAll;
 	}
 
+	public int getNbProduit() {
+		return nbProduit;
+	}
+
+
+	public void setNbProduit(int nbProduit) {
+		this.nbProduit = nbProduit;
+	}
+
 
 	public String ajouterProduitByCat() {
 		//Recuperer la categorie
-		
 		int idCat=(int) maSession.getAttribute("idCat");
-		System.out.println("IDCATEGORIE :" +idCat);
 		this.produit.setCategorie(categorieService.getCategorieById(idCat));
-		System.out.println("Je suis arrivé la");
 		this.produit.setSelectionne(false);
 		this.produit = produitService.addproduit(this.produit);
 		
@@ -128,9 +136,9 @@ public class ProduitManagedBean implements Serializable {
 	}
 
 	public String modifierProduit() {  
-		// Récuperer l'agent dans la session
+		// Récuperer la catégorie
 		int idCat=(int) maSession.getAttribute("idCat");
-		System.out.println("IDCATEGORIE :" +idCat);
+	
 		this.produit.setCategorie(categorieService.getCategorieById(idCat));
 		this.produit = produitService.updateProduit(this.produit);
 		
@@ -170,12 +178,35 @@ public class ProduitManagedBean implements Serializable {
 	}
 	
 	public String modifLien() {
-		// Appel de la methode service
+		// Recuperation du produit
 		Produit pOut = produitService.getProduit(this.produit.getIdProduit());
 		
 		this.produit=pOut;
-		
+		// Retour dans la page de modification avec remplissage des champs
 		return"modifProduit";
+	}
+	
+	public String afficherParCategorieClient() {
+		maSession.setAttribute("idCat", idCategorie);
+		this.listeProduit = produitService.getAllPorduitByCategorie(idCategorie);
+		// Ajouter la liste dans la session
+		FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("produitListByCat", listeProduit);
+		return "afficherListeProduitClient";
+	}
+	
+	public String ajouter() {
+		this.nbProduit++;
+		System.out.println("Nombre produit :" +nbProduit);
+		return "afficherListeProduitClient";
+	}
+	
+	public String enlever() {
+		this.nbProduit--;
+		if(this.nbProduit<=0){
+			this.nbProduit=0;
+		}
+		System.out.println("Nombre produit :" +nbProduit);
+		return "afficherListeProduitClient";
 	}
 
 }
