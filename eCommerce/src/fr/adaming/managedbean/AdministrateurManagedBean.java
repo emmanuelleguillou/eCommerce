@@ -66,7 +66,7 @@ public class AdministrateurManagedBean implements Serializable {
 					if (element.getPhoto() == null) {
 						element.setImage(null);
 					} else {
-						element.setImage("data:image/png;base64," + Base64.encodeBase64String(element.getPhoto()));
+						element.setImage("data:image/png;base64," + Base64.encodeBase64(element.getPhoto()));
 					}
 					this.listeCategorie.add(element);
 				}

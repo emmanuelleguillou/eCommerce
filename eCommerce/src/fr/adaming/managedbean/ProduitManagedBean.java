@@ -17,6 +17,7 @@ import fr.adaming.model.Produit;
 import fr.adaming.service.ICategorieService;
 import fr.adaming.service.ILigneCommandeService;
 import fr.adaming.service.IProduitService;
+import org.apache.commons.mail.*;
 
 @ManagedBean(name = "prMB")
 @RequestScoped
@@ -34,18 +35,16 @@ public class ProduitManagedBean implements Serializable {
 	private HttpSession maSession;
 	private int idCategorie;
 
-
 	public ProduitManagedBean() {
 		this.produit = new Produit();
 	}
 
-
 	@PostConstruct
 	public void init() {
 		this.maSession = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
-		// Recuperer la liste des produit 
-		this.listeProduit =  (List<Produit>) maSession.getAttribute("produitListByCat");
-		this.listeProduitAll =  (List<Produit>) maSession.getAttribute("produitListAll");
+		// Recuperer la liste des produit
+		this.listeProduit = (List<Produit>) maSession.getAttribute("produitListByCat");
+		this.listeProduitAll = (List<Produit>) maSession.getAttribute("produitListAll");
 	}
 
 	public IProduitService getProduitService() {
@@ -87,11 +86,10 @@ public class ProduitManagedBean implements Serializable {
 	public void setIdCategorie(int idCategorie) {
 		this.idCategorie = idCategorie;
 	}
-	
+
 	public List<Produit> getListeProduitAll() {
 		return listeProduitAll;
 	}
-
 
 	public void setListeProduitAll(List<Produit> listeProduitAll) {
 		this.listeProduitAll = listeProduitAll;
@@ -101,19 +99,17 @@ public class ProduitManagedBean implements Serializable {
 		return nbProduit;
 	}
 
-
 	public void setNbProduit(int nbProduit) {
 		this.nbProduit = nbProduit;
 	}
 
-
 	public String ajouterProduitByCat() {
-		//Recuperer la categorie
-		int idCat=(int) maSession.getAttribute("idCat");
+		// Recuperer la categorie
+		int idCat = (int) maSession.getAttribute("idCat");
 		this.produit.setCategorie(categorieService.getCategorieById(idCat));
 		this.produit.setSelectionne(false);
 		this.produit = produitService.addproduit(this.produit);
-		
+
 		if (this.produit.getIdProduit() != 0) {
 			// recuperer la nouvelle liste de la bd
 			this.listeProduit = produitService.getAllPorduit();
@@ -125,27 +121,27 @@ public class ProduitManagedBean implements Serializable {
 	}
 
 	public String supprimerProduitByCat() {
-		
+
 		produitService.deleteProduit(this.produit.getIdProduit());
-		System.out.println("IDCategorieTest= : " +idCategorie);
-		int idCat=(int) maSession.getAttribute("idCat");
+		System.out.println("IDCategorieTest= : " + idCategorie);
+		int idCat = (int) maSession.getAttribute("idCat");
 		// recuperer la nouvelle liste de la bd
 		this.listeProduit = produitService.getAllPorduitByCategorie(idCat);
-		//smaSession.setAttribute("idCategorie", idCategorie);
+		// smaSession.setAttribute("idCategorie", idCategorie);
 		// Mettre a jour la liste dans la session
 		maSession.setAttribute("produitListByCat", this.listeProduit);
 		return "afficherListeProduit";
 	}
 
-	public String modifierProduit() {  
+	public String modifierProduit() {
 		// Récuperer la catégorie
-		int idCat=(int) maSession.getAttribute("idCat");
-	
+		int idCat = (int) maSession.getAttribute("idCat");
+
 		this.produit.setCategorie(categorieService.getCategorieById(idCat));
 		this.produit = produitService.updateProduit(this.produit);
-		
+
 		if (this.produit.getIdProduit() != 0) {
-			 idCat=(int) maSession.getAttribute("idCat");
+			idCat = (int) maSession.getAttribute("idCat");
 			// recuperer la nouvelle liste de la bd
 			this.listeProduit = produitService.getAllPorduitByCategorie(idCat);
 			// Mettre a jour la liste dans la session
@@ -171,23 +167,23 @@ public class ProduitManagedBean implements Serializable {
 		FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("produitListByCat", listeProduit);
 		return "afficherListeProduit";
 	}
-	
+
 	public String afficherAll() {
 		this.listeProduitAll = produitService.getAllPorduit();
 		// Ajouter la liste dans la session
 		FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("produitListAll", listeProduitAll);
 		return "afficherProduits";
 	}
-	
+
 	public String modifLien() {
 		// Recuperation du produit
 		Produit pOut = produitService.getProduit(this.produit.getIdProduit());
-		
-		this.produit=pOut;
+
+		this.produit = pOut;
 		// Retour dans la page de modification avec remplissage des champs
-		return"modifProduit";
+		return "modifProduit";
 	}
-	
+
 	public String afficherParCategorieClient() {
 		maSession.setAttribute("idCat", idCategorie);
 		this.listeProduit = produitService.getAllPorduitByCategorie(idCategorie);
@@ -195,16 +191,44 @@ public class ProduitManagedBean implements Serializable {
 		FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("produitListByCat", listeProduit);
 		return "afficherListeProduitClient";
 	}
-	
-	public String valide(){
-		
-		System.out.println("IDPRODUIT:" +this.produit.getIdProduit());
-		Produit pOut = produitService.getProduit(this.produit.getIdProduit());
-		
-		System.out.println(pOut);
-		
-		System.out.println(" NB PRODUIT :" +this.getNbProduit());
-		return "afficherListeProduitClient";
+
+	public String envoyeEmail() {
+		try {
+			
+			// Creation de la piece jointe
+			  EmailAttachment attachment = new EmailAttachment();
+			  attachment.setPath("C:/Users/inti0294/Downloads/logo1.jpg");
+			  attachment.setDisposition(EmailAttachment.ATTACHMENT);
+			  attachment.setDescription("Picture of John");
+			  attachment.setName("John");
+			
+			 //Creation du mail simple
+			//Email email = new SimpleEmail();
+			 
+			//Creation du mail avec piece jointe
+			MultiPartEmail email = new MultiPartEmail(); 
+			email.setHostName("smtp.googlemail.com");
+			email.setSmtpPort(465);
+			//Parametrage du compte
+			email.setAuthenticator(new DefaultAuthenticator("manulg13@gmail.com", "wanadoo8"));
+			email.setSSLOnConnect(true);
+			//Adresse de l'envoyeur
+			email.setFrom("manulg13@gmail.com");
+
+			email.setSubject("TestMail");
+			email.setMsg("This is a test mail ... :-)");
+			email.addTo("manu49_8@hotmail.fr");
+			
+			//Ajouter la pièce jointe
+			email.attach(attachment);
+			//envoyer le mail
+			email.send();
+
+		} catch (EmailException e) {
+			System.out.println("Echec envoyer mail");
+			e.printStackTrace();
+		}
+		return "accueil";
 	}
 
 }

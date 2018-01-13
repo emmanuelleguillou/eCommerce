@@ -45,14 +45,14 @@
 				<h:inputText value="#{lcMB.ligneCommande.quantite}" />
 
 				<p:commandLink value="ajouter ligne commande"
-					action="#{lcMB.ajouterLigneCommande}" update="growl">
+					action="#{lcMB.ajouterLigneCommande}">
 					<f:setPropertyActionListener value="#{pro.idProduit}"
 						target="#{lcMB.produit.idProduit}"></f:setPropertyActionListener>
 				</p:commandLink>
 			</h:form>
 		</p:column>
 	</p:dataTable>
-	<p:growl id="growl" showDetail="true" sticky="true" />  
+	
 
 </h:body>
 </html>

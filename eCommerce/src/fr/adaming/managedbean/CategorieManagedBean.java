@@ -140,6 +140,7 @@ public class CategorieManagedBean {
 		categorie.setPhoto(contents);
 		// Transforme byte array en string (format basé64)
 		image = "data:image/png;base64," + Base64.encodeBase64String(categorie.getPhoto());
+		
 	}
 
 	public void getAllCategories() {
@@ -150,7 +151,7 @@ public class CategorieManagedBean {
 			if (element.getPhoto() == null) {
 				element.setImage(null);
 			} else {
-				element.setImage("data:image/png;base64," + Base64.encodeBase64String(element.getPhoto()));
+				element.setImage("data:image/png;base64," + Base64.encodeBase64(element.getPhoto()));
 			}
 			this.listeCategories.add(element);
 		}
