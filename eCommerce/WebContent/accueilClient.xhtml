@@ -44,17 +44,20 @@
 		</p:column>
 
 		<p:column>
-
-			<p:commandLink value="Afficher le détail"
-				action="#{lcMB.afficherLigneCommandeByIDCommande}">
-			</p:commandLink>
+			<h:form>
+				<p:commandLink value="Afficher le détail"
+					action="#{lcMB.afficherLigneCommandeByIDCommande}" update="tableau">
+					<f:setPropertyActionListener value="#{sessionScope.idCommande}"
+						target="#{lcMB.idCommande}"></f:setPropertyActionListener>
+				</p:commandLink>
+			</h:form>
 
 		</p:column>
 	</p:dataTable>
 
 
-	<h:form rendered="#{lcMB.indice}">
-		<p:dataTable var="lc" value="#{sessionScope.listeLCbyC}">
+	<h:form rendered="#{lcMB.indice}" id="tableau">
+		<p:dataTable var="lc" value="#{lcMB.listeLCbyC}">
 			<p:column headerText="Id Ligne Commande">
 				<h:outputText value="#{lc.idLigneCommande}" />
 			</p:column>
@@ -63,7 +66,7 @@
 				<h:outputText value="#{lc.produit.idProduit}" />
 			</p:column>
 
-			<p:column headerText="Quantitén">
+			<p:column headerText="Quantité">
 				<h:outputText value="#{lc.quantite}" />
 			</p:column>
 

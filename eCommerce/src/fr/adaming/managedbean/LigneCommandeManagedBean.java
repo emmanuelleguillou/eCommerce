@@ -7,6 +7,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
@@ -17,7 +18,8 @@ import fr.adaming.service.ILigneCommandeService;
 import fr.adaming.service.IProduitService;
 
 @ManagedBean(name = "lcMB")
-@SessionScoped
+//@SessionScoped
+@RequestScoped
 public class LigneCommandeManagedBean implements Serializable {
 
 	@EJB
@@ -29,7 +31,8 @@ public class LigneCommandeManagedBean implements Serializable {
 	private Produit produit;
 	private Commande commande;
 	private boolean indice = false;
-
+	List<LigneCommande> listeLCbyC;
+	private int  idCommande;
 	// Constructeur par défaut
 	public LigneCommandeManagedBean() {
 		this.ligneCommande = new LigneCommande();
@@ -69,6 +72,24 @@ public class LigneCommandeManagedBean implements Serializable {
 
 	public void setIndice(boolean indice) {
 		this.indice = indice;
+	}
+	
+	public List<LigneCommande> getListeLCbyC() {
+		return listeLCbyC;
+	}
+
+	public void setListeLCbyC(List<LigneCommande> listeLCbyC) {
+		this.listeLCbyC = listeLCbyC;
+	}
+
+	
+	
+	public int getIdCommande() {
+		return idCommande;
+	}
+
+	public void setIdCommande(int idCommande) {
+		this.idCommande = idCommande;
 	}
 
 	// Les méthodes
@@ -133,12 +154,17 @@ public class LigneCommandeManagedBean implements Serializable {
 	}
 
 	public String afficherLigneCommandeByIDCommande() {
+		//Il faut trouver un moyen pour recuperer l'id de la commande
 		indice = true;
 		//passer toutes les lignes de commande d'une commande dans une liste
-		List<LigneCommande> liste = ligneCommandeService.getAllLigneCommandeByIdCommande(this.commande.getIdCommande());
+		//List<LigneCommande> listeLCbyC = ligneCommandeService.getAllLigneCommandeByIdCommande(this.commande.getIdCommande());
 		//Passer la liste dans la sessio,
-		FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("listeLCbyC", liste);
 		
+		//FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("listeLCbyC", liste);
+		listeLCbyC = ligneCommandeService.getAllLigneCommandeByIdCommande(this.idCommande);
+		for (LigneCommande ligneCommande : listeLCbyC) {
+			System.out.println(ligneCommande);
+		}
 		return "accueilClient";
 	}
 	

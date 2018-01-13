@@ -11,9 +11,7 @@
 </h:head>
 <h:body>
 
-	<h1
-		style="text-align: center; color: red; margin-top: 50px; margin-left: -800px">Formulaire
-		de connexion d'un client</h1>
+	<h1 style="text-align: center; color: red; margin-top: 50px; margin-left: -800px">Formulaire de connexion d'un client</h1>
 	<h:form>
 		<h:panelGrid columns="2">
 		Nom : <h:inputText value="#{clMB.client.nomClient}"></h:inputText>
@@ -28,30 +26,28 @@
 
 	<br />
 
-	<h1
-		style="text-align: center; color: red; margin-top: 50px; margin-left: -800px">Formulaire
+	<h1 style="text-align: center; color: red; margin-top: 50px; margin-left: -800px">Formulaire
 		d'ajout d'un client</h1>
 
-	<h:form
-		style="background-color: white ;width: 400px; margin-left: 75px ; margin-top:50px">
+	<h:form style="background-color: white ;width: 400px; margin-left: 75px ; margin-top:50px">
 		<h:panelGrid columns="2">
 
-Nom : <p:inputText id="idNom" label="Nom"
+		Nom : <p:inputText id="idNom" label="Nom"
 				value="#{clMB.client.nomClient}" required="true"></p:inputText>
 
 			<br />
 
-Adresse : <p:inputText id="idAdresse" label="Adresse"
+		Adresse : <p:inputText id="idAdresse" label="Adresse"
 				value="#{clMB.client.adresseClient}" required="true"></p:inputText>
 
 			<br />
 
-Email : <p:inputText id="idEmail" label="Email"
+		Email : <p:inputText id="idEmail" label="Email"
 				value="#{clMB.client.email}" required="true"></p:inputText>
 
 			<br />
 
-Téléphone : <p:inputText id="idTelephone" label="Telephone"
+		Téléphone : <p:inputText id="idTelephone" label="Telephone"
 				value="#{clMB.client.tel}" required="true"></p:inputText>
 
 			<br />
