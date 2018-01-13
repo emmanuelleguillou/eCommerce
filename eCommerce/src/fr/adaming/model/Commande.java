@@ -29,7 +29,7 @@ public class Commande implements Serializable {
 	@Temporal(TemporalType.DATE) // L'objet de sortir de simpleDateFormt est
 									// dans le package util.Date, celui de
 	// la BD est de type sql.Date. C'est pourquoi on doit utiliser temporal
-	private Date dateCommande;
+	private Date dateCommande = new Date();
 
 	// Transformation des associations uml en java
 	@ManyToOne

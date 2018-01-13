@@ -20,10 +20,10 @@
 			<p:submenu label="Gérer votre compte" icon="ui-icon-person">
 
 
-				<p:menuitem value="Modifier votre compte" url="modifierClient.xhtml"
+				<p:menuitem value="Modifier votre compte" url="#"
 					icon="ui-icon-wrench" />
-				<p:menuitem value="Supprimer votre compte"
-					url="supprimerClient.xhtml" icon="ui-icon-minus" />
+				<p:menuitem value="Supprimer votre compte" url="#"
+					icon="ui-icon-minus" />
 
 			</p:submenu>
 
@@ -37,11 +37,11 @@
 					url="rechercherLigneCommande.xhtml" />
 			</p:submenu>
 
+			<f:facet name="option">
+				<h:commandLink value="Retour au site"
+					action="#{clMB.deconnexionClient}" icon="ui-icon-home" />
+			</f:facet>
 
-			<p:menuitem value="Retour au site" action="#{clMB.deconnexionClient}"
-				icon="ui-icon-home" >
-				
-				</p:menuitem>
 
 
 

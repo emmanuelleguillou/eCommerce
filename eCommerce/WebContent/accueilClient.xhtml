@@ -21,36 +21,28 @@
 
 	<h1 style="text-align: center; color: red">Votre commande</h1>
 
-
-	<p:dataTable var="com" value="#{lcMB.commande}">
-		<p:column headerText="N° de la commande">
-			<h:outputText value="#{com.idCommande}" />
-		</p:column>
-
-		<p:column headerText="Date de la commande">
-			<h:outputText value="#{com.dateCommande}" />
-		</p:column>
-
-		<p:column headerText="Description">
-			<h:outputText value="#{pro.description}" />
-		</p:column>
-
-		<p:column headerText="Prix">
-			<h:outputText value="#{pro.prix}" />
-		</p:column>
-
-		<p:column headerText="Quantité">
-			<h:outputText value="#{pro.quantite}" />
-		</p:column>
-
-	</p:dataTable>
 	<h:form>
-		<p:commandLink value="Afficher le détail"
-			action="#{lcMB.afficherLigneCommandeByIDCommande}" update="@all">
-			<f:setPropertyActionListener value="#{sessionScope.idCommande}"
-				target="#{lcMB.idCommande}"></f:setPropertyActionListener>
-		</p:commandLink>
+		<p:dataTable var="com" value="#{lcMB.commande}">
+			<p:column headerText="N° de la commande">
+				<h:outputText value="#{com.idCommande}" />
+			</p:column>
+
+			<p:column headerText="Date de la commande">
+				<h:outputText value="#{com.dateCommande}" />
+			</p:column>
+
+			<p:column headerText="   ">
+				<h:commandLink value="Afficher le détail"
+					action="#{lcMB.afficherLigneCommandeByIDCommande}" update="@all">
+					<f:setPropertyActionListener value="#{sessionScope.idCommande}"
+						target="#{lcMB.idCommande}"/>
+				</h:commandLink>
+			</p:column>
+
+		</p:dataTable>
 	</h:form>
+
+
 
 
 	<h:form id="tableau" rendered="#{lcMB.indice}">

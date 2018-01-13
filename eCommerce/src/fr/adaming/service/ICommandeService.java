@@ -16,8 +16,10 @@ public interface ICommandeService {
 
 	public void deleteCommande(long idCommande);
 
-	public Commande getCommande(long idC);
+	public Commande getCommandeByIdClNULL(long idCl);
 
 	public List<Commande> gettAllCommande(long idCl);
+	
+	public Commande getCommande(long idCommande);
 
 }

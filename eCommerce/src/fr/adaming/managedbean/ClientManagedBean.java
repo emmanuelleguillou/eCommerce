@@ -12,6 +12,7 @@ import fr.adaming.model.Client;
 import fr.adaming.model.Commande;
 import fr.adaming.model.Panier;
 import fr.adaming.service.IClientService;
+import fr.adaming.service.ICommandeService;
 
 @ManagedBean(name = "clMB")
 @RequestScoped
@@ -19,6 +20,8 @@ public class ClientManagedBean implements Serializable {
 
 	@EJB
 	private IClientService clientService;
+	@EJB
+	private ICommandeService commandeService;
 
 	private Client client;
 	private Commande commande;
@@ -64,8 +67,13 @@ public class ClientManagedBean implements Serializable {
 		// Passer le client dans la session
 		FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("client", this.client);
 
+		// Récupérer la commande effectuée par le client avant l'enregistrement
+		// de celui-ci (id_c null dans la comande)
+		this.commande = commandeService.getCommandeByIdClNULL(this.client.getIdClient());
+
 		// Donner le client à la commande associée
-		// this.commande.setClient(this.client);
+		this.commande.setClient(this.client);
+		this.commande = commandeService.updateCommande(this.commande);
 
 		if (this.client.getIdClient() != 0) {
 			return "accueilClient";
@@ -88,13 +96,17 @@ public class ClientManagedBean implements Serializable {
 		Client clOut = clientService.getClientByNomEmail(this.client.getNomClient(), this.client.getEmail());
 		if (clOut != null) {
 			this.client = clOut;
-			
+
+			// Récupérer la commande effectuée par le client avant
+			// l'enregistrement de celui-ci (id_c null dans la comande)
+			this.commande = commandeService.getCommandeByIdClNULL(this.client.getIdClient());
+
 			// Donner le client à la commande associée
-//			this.commande.setClient(this.client);
-			
-			//Passer le client dans la session
+			this.commande.setClient(this.client);
+			this.commande = commandeService.updateCommande(this.commande);
+			// Passer le client dans la session
 			FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("client", this.client);
-						
+
 			return "accueilClient";
 		} else {
 			return "loginClient";

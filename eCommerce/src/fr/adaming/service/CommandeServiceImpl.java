@@ -44,8 +44,8 @@ public class CommandeServiceImpl implements ICommandeService {
 	}
 
 	@Override
-	public Commande getCommande(long idC) {
-		Commande cOut = commandeDao.getCommande(idC);
+	public Commande getCommandeByIdClNULL(long idCl) {
+		Commande cOut = commandeDao.getCommandeByIdClNULL(idCl);
 		return cOut;
 	}
 
@@ -53,6 +53,12 @@ public class CommandeServiceImpl implements ICommandeService {
 	public List<Commande> gettAllCommande(long idCl) {
 		List<Commande> liste = commandeDao.gettAllCommande(idCl);
 		return liste;
+	}
+
+	@Override
+	public Commande getCommande(long idCommande) {
+		Commande cOut = commandeDao.getCommande(idCommande);
+		return cOut;
 	}
 
 }

@@ -46,8 +46,16 @@ public class CommandeDaoImpl implements ICommandeDao {
 	}
 
 	@Override
-	public Commande getCommande(long idC) {
-		Commande cOut = em.find(Commande.class, idC);
+	public Commande getCommandeByIdClNULL(long idCl) {
+		// construre la requête
+		String req = "SELECT c FROM Commande AS c WHERE c.client.idClient IS NULL";
+
+		// création du query
+		Query query = em.createQuery(req);
+
+		// création de la nouvelle liste des lignes commandes
+		Commande cOut = (Commande) query.getSingleResult();
+
 		return cOut;
 	}
 
@@ -66,6 +74,13 @@ public class CommandeDaoImpl implements ICommandeDao {
 		List<Commande> listeCommande = query.getResultList();
 
 		return listeCommande;
+	}
+
+	@Override
+	public Commande getCommande(long idCommande) {
+		Commande cOut = em.find(Commande.class, idCommande);
+		
+		return cOut;
 	}
 
 }

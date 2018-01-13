@@ -36,6 +36,7 @@ public class LigneCommandeManagedBean implements Serializable {
 	private boolean indice = false;
 	List<LigneCommande> listeLCbyC;
 	private int  idCommande;
+	
 	// Constructeur par défaut
 	public LigneCommandeManagedBean() {
 		this.ligneCommande = new LigneCommande();
@@ -169,7 +170,7 @@ public class LigneCommandeManagedBean implements Serializable {
 			System.out.println(ligneCommande);
 		}
 		
-		commande = commandeService.getCommande(this.idCommande);
+		this.commande = commandeService.getCommande(this.idCommande);
 		return "accueilClient";
 	}
 	

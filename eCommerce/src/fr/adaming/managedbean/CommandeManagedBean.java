@@ -107,8 +107,8 @@ public class CommandeManagedBean implements Serializable {
 		}
 	}
 
-	public String rechercherCommande() {
-		Commande cOut = commandeService.getCommande(this.commande.getIdCommande());
+	public String rechercherCommandeParIdClientNull() {
+		Commande cOut = commandeService.getCommandeByIdClNULL(this.client.getIdClient());
 		if (cOut != null) {
 			this.commande = cOut;
 			return "rechercheCommande";
