@@ -46,7 +46,7 @@
 		<p:column>
 			<h:form>
 				<p:commandLink value="Afficher le détail"
-					action="#{lcMB.afficherLigneCommandeByIDCommande}" update="tableau">
+					action="#{lcMB.afficherLigneCommandeByIDCommande}" update="@all">
 					<f:setPropertyActionListener value="#{sessionScope.idCommande}"
 						target="#{lcMB.idCommande}"></f:setPropertyActionListener>
 				</p:commandLink>
@@ -56,7 +56,7 @@
 	</p:dataTable>
 
 
-	<h:form rendered="#{lcMB.indice}" id="tableau">
+	<h:form  id="tableau">
 		<p:dataTable var="lc" value="#{lcMB.listeLCbyC}">
 			<p:column headerText="Id Ligne Commande">
 				<h:outputText value="#{lc.idLigneCommande}" />
