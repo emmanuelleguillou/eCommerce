@@ -22,7 +22,7 @@
 	<h1 style="text-align: center; color: red">Votre commande</h1>
 
 
-	<p:dataTable var="com" value="#{cMB.commande}">
+	<p:dataTable var="com" value="#{lcMB.commande}">
 		<p:column headerText="N° de la commande">
 			<h:outputText value="#{com.idCommande}" />
 		</p:column>
@@ -43,20 +43,17 @@
 			<h:outputText value="#{pro.quantite}" />
 		</p:column>
 
-		<p:column>
-			<h:form>
-				<p:commandLink value="Afficher le détail"
-					action="#{lcMB.afficherLigneCommandeByIDCommande}" update="@all">
-					<f:setPropertyActionListener value="#{sessionScope.idCommande}"
-						target="#{lcMB.idCommande}"></f:setPropertyActionListener>
-				</p:commandLink>
-			</h:form>
-
-		</p:column>
 	</p:dataTable>
+	<h:form>
+		<p:commandLink value="Afficher le détail"
+			action="#{lcMB.afficherLigneCommandeByIDCommande}" update="@all">
+			<f:setPropertyActionListener value="#{sessionScope.idCommande}"
+				target="#{lcMB.idCommande}"></f:setPropertyActionListener>
+		</p:commandLink>
+	</h:form>
 
 
-	<h:form  id="tableau">
+	<h:form id="tableau" rendered="#{lcMB.indice}">
 		<p:dataTable var="lc" value="#{lcMB.listeLCbyC}">
 			<p:column headerText="Id Ligne Commande">
 				<h:outputText value="#{lc.idLigneCommande}" />

@@ -14,6 +14,7 @@ import javax.faces.context.FacesContext;
 import fr.adaming.model.Commande;
 import fr.adaming.model.LigneCommande;
 import fr.adaming.model.Produit;
+import fr.adaming.service.ICommandeService;
 import fr.adaming.service.ILigneCommandeService;
 import fr.adaming.service.IProduitService;
 
@@ -26,6 +27,8 @@ public class LigneCommandeManagedBean implements Serializable {
 	private ILigneCommandeService ligneCommandeService;
 	@EJB
 	private IProduitService produitService;
+	@EJB
+	private ICommandeService commandeService;
 
 	private LigneCommande ligneCommande;
 	private Produit produit;
@@ -154,7 +157,7 @@ public class LigneCommandeManagedBean implements Serializable {
 	}
 
 	public String afficherLigneCommandeByIDCommande() {
-		//Il faut trouver un moyen pour recuperer l'id de la commande
+		
 		indice = true;
 		//passer toutes les lignes de commande d'une commande dans une liste
 		//List<LigneCommande> listeLCbyC = ligneCommandeService.getAllLigneCommandeByIdCommande(this.commande.getIdCommande());
@@ -165,6 +168,8 @@ public class LigneCommandeManagedBean implements Serializable {
 		for (LigneCommande ligneCommande : listeLCbyC) {
 			System.out.println(ligneCommande);
 		}
+		
+		commande = commandeService.getCommande(this.idCommande);
 		return "accueilClient";
 	}
 	
