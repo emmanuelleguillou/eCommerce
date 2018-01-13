@@ -65,7 +65,7 @@ public class ClientManagedBean implements Serializable {
 		FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("client", this.client);
 
 		// Donner le client à la commande associée
-		this.commande.setClient(this.client);
+//		this.commande.setClient(this.client);
 
 		if (this.client.getIdClient() != 0) {
 			return "accueilClient";
@@ -90,7 +90,7 @@ public class ClientManagedBean implements Serializable {
 			this.client = clOut;
 			
 			// Donner le client à la commande associée
-			this.commande.setClient(this.client);
+//			this.commande.setClient(this.client);
 			
 			//Passer le client dans la session
 			FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("client", this.client);
