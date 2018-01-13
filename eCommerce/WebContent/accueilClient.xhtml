@@ -14,9 +14,68 @@
 </h:head>
 
 <h:body>
-<h1>Vous êtes dans l'accueil</h1>
+	<!-- Insertion du header -->
+	<ui:insert name="headerClient" />
+	<ui:include src="template/headerClient.xhtml" />
 
 
+	<h1 style="text-align: center; color: red">Votre commande</h1>
+
+
+	<p:dataTable var="com" value="#{cMB.commande}">
+		<p:column headerText="N° de la commande">
+			<h:outputText value="#{com.idCommande}" />
+		</p:column>
+
+		<p:column headerText="Date de la commande">
+			<h:outputText value="#{com.dateCommande}" />
+		</p:column>
+
+		<p:column headerText="Description">
+			<h:outputText value="#{pro.description}" />
+		</p:column>
+
+		<p:column headerText="Prix">
+			<h:outputText value="#{pro.prix}" />
+		</p:column>
+
+		<p:column headerText="Quantité">
+			<h:outputText value="#{pro.quantite}" />
+		</p:column>
+
+		<p:column>
+
+			<p:commandLink value="Afficher le détail"
+				action="#{lcMB.afficherLigneCommandeByIDCommande}">
+			</p:commandLink>
+
+		</p:column>
+	</p:dataTable>
+
+
+	<h:form rendered="#{lcMB.indice}">
+		<p:dataTable var="lc" value="#{sessionScope.listeLCbyC}">
+			<p:column headerText="Id Ligne Commande">
+				<h:outputText value="#{lc.idLigneCommande}" />
+			</p:column>
+
+			<p:column headerText="ID Produit">
+				<h:outputText value="#{lc.produit.idProduit}" />
+			</p:column>
+
+			<p:column headerText="Quantitén">
+				<h:outputText value="#{lc.quantite}" />
+			</p:column>
+
+			<p:column headerText="Prix">
+				<h:outputText value="#{lc.prix}" />
+			</p:column>
+
+		</p:dataTable>
+
+		<h:commandButton style="center" value="Modifier la commande" />
+
+	</h:form>
 
 
 </h:body>

@@ -30,7 +30,7 @@ public class LigneCommande implements Serializable {
 
 	@ManyToOne
 	@JoinColumn(name="id_commande", referencedColumnName = "idCommande")
-	Commande commandes;
+	Commande commande;
 
 	@ManyToOne
 	@JoinColumn(name="id_panier" ,referencedColumnName="idPanier")
@@ -80,12 +80,12 @@ public class LigneCommande implements Serializable {
 	}
 
 
-	public Commande getCommandes() {
-		return commandes;
+	public Commande getCommande() {
+		return commande;
 	}
 
-	public void setCommandes(Commande commandes) {
-		this.commandes = commandes;
+	public void setCommandes(Commande commande) {
+		this.commande = commande;
 	}
 
 	public Panier getPanier() {

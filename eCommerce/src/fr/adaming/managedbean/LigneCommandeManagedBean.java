@@ -25,15 +25,25 @@ public class LigneCommandeManagedBean implements Serializable {
 	@EJB
 	private IProduitService produitService;
 
-	LigneCommande ligneCommande;
-	Produit produit;
-	Commande commande;
+	private LigneCommande ligneCommande;
+	private Produit produit;
+	private Commande commande;
+	private boolean indice = false;
 
 	// Constructeur par défaut
 	public LigneCommandeManagedBean() {
 		this.ligneCommande = new LigneCommande();
 		this.produit = new Produit();
 
+	}
+
+	// Getters et setters
+	public LigneCommande getLigneCommande() {
+		return ligneCommande;
+	}
+
+	public void setLigneCommande(LigneCommande ligneCommande) {
+		this.ligneCommande = ligneCommande;
 	}
 
 	public Produit getProduit() {
@@ -44,16 +54,24 @@ public class LigneCommandeManagedBean implements Serializable {
 		this.produit = produit;
 	}
 
-	public LigneCommande getLigneCommande() {
-		return ligneCommande;
+
+	public Commande getCommande() {
+		return commande;
 	}
 
-	public void setLigneCommande(LigneCommande ligneCommande) {
-		this.ligneCommande = ligneCommande;
+	public void setCommande(Commande commande) {
+		this.commande = commande;
 	}
 
-	// Les Méthodes
+	public boolean isIndice() {
+		return indice;
+	}
 
+	public void setIndice(boolean indice) {
+		this.indice = indice;
+	}
+
+	// Les méthodes
 	public String ajouterLigneCommande() {
 		// récupération du produit par l'id entré
 		this.produit = produitService.getProduit(this.produit.getIdProduit());
@@ -65,7 +83,8 @@ public class LigneCommandeManagedBean implements Serializable {
 		this.ligneCommande = ligneCommandeService.addLigneCommande(this.ligneCommande);
 		System.out.println(this.ligneCommande);
 		if (this.ligneCommande.getIdLigneCommande() != 0) {
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Success",  "Ligne de commande ajoutée") );
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage("Success", "Ligne de commande ajoutée"));
 			return "afficherListeProduitClient";
 		} else {
 			return "ajouterLigneCommande";
@@ -102,7 +121,7 @@ public class LigneCommandeManagedBean implements Serializable {
 	}
 
 	public String supprimerLigneCommande() {
-		
+
 		ligneCommandeService.deleteLigneCommande(this.ligneCommande.getIdLigneCommande());
 		LigneCommande lcOut = ligneCommandeService.getLigneCommande(this.ligneCommande.getIdLigneCommande());
 		if (lcOut == null) {
@@ -112,6 +131,17 @@ public class LigneCommandeManagedBean implements Serializable {
 		}
 
 	}
-	
 
+	public String afficherLigneCommandeByIDCommande() {
+		indice = true;
+		//passer toutes les lignes de commande d'une commande dans une liste
+		List<LigneCommande> liste = ligneCommandeService.getAllLigneCommandeByIdCommande(this.commande.getIdCommande());
+		//Passer la liste dans la sessio,
+		FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("listeLCbyC", liste);
+		
+		return "accueilClient";
+	}
+	
+	
+	
 }

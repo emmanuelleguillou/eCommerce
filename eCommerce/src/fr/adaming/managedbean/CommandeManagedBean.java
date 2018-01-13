@@ -28,6 +28,7 @@ public class CommandeManagedBean implements Serializable {
 	private List<LigneCommande> listeLigneCommande;
 	private LigneCommande ligneCommande;
 
+
 	// constructeur par défaut
 	public CommandeManagedBean() {
 		this.commande = new Commande();
@@ -67,6 +68,7 @@ public class CommandeManagedBean implements Serializable {
 	public void setLigneCommande(LigneCommande ligneCommande) {
 		this.ligneCommande = ligneCommande;
 	}
+	
 
 	// Les méthodes
 	public String ajouterComande() {
@@ -86,6 +88,9 @@ public class CommandeManagedBean implements Serializable {
 		//générer une nouvelle liste des ligne commande qui sont associées à la commande
 		this.listeLigneCommande = ligneCommandeService.getAllLigneCommandeByIdCommande(this.commande.getIdCommande());
 		System.out.println("liste des lc par id commande : " + this.listeLigneCommande);
+		
+	
+		
 		if (this.commande != null) {
 			return "loginClient";
 		} else {

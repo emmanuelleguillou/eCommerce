@@ -21,7 +21,8 @@ public class ClientManagedBean implements Serializable {
 	private IClientService clientService;
 
 	private Client client;
-	private List<Commande> commande;
+	private Commande commande;
+	private List<Commande> listeCommandes;
 	private Panier panier;
 
 	// Constructeur par défaut
@@ -37,12 +38,12 @@ public class ClientManagedBean implements Serializable {
 		this.client = client;
 	}
 
-	public List<Commande> getCommande() {
-		return commande;
+	public List<Commande> getListeCommandes() {
+		return listeCommandes;
 	}
 
-	public void setCommande(List<Commande> commande) {
-		this.commande = commande;
+	public void setCommande(List<Commande> listeCommandes) {
+		this.listeCommandes = listeCommandes;
 	}
 
 	public Panier getPanier() {
@@ -53,11 +54,18 @@ public class ClientManagedBean implements Serializable {
 		this.panier = panier;
 	}
 
-	// Les Méthodes
+	public void setCommande(Commande commande) {
+		this.commande = commande;
+	}
 
+	// Les Méthodes
 	public String ajouterClient() {
 		this.client = clientService.addClient(this.client);
+		// Passer le client dans la session
 		FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("client", this.client);
+
+		// Donner le client à la commande associée
+		this.commande.setClient(this.client);
 
 		if (this.client.getIdClient() != 0) {
 			return "accueilClient";
@@ -80,7 +88,13 @@ public class ClientManagedBean implements Serializable {
 		Client clOut = clientService.getClientByNomEmail(this.client.getNomClient(), this.client.getEmail());
 		if (clOut != null) {
 			this.client = clOut;
+			
+			// Donner le client à la commande associée
+			this.commande.setClient(this.client);
+			
+			//Passer le client dans la session
 			FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("client", this.client);
+						
 			return "accueilClient";
 		} else {
 			return "loginClient";
@@ -100,7 +114,7 @@ public class ClientManagedBean implements Serializable {
 
 	public void deconnexionClient() {
 		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
-		
+
 	}
 
 }

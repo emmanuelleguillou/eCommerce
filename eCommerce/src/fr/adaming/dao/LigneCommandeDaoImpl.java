@@ -56,7 +56,7 @@ public class LigneCommandeDaoImpl implements ILigneCommandeDao {
 	@Override
 	public List<LigneCommande> getAllLigneCommandeByIdCommande(long idCommande) {
 		// construre la requête
-		String req = "SELECT lc FROM LigneCommande AS lc WHERE lc.commandes.idCommande=:idC";
+		String req = "SELECT lc FROM LigneCommande AS lc WHERE lc.commande.idCommande=:idC";
 
 		// création du query
 		Query query = em.createQuery(req);
@@ -82,7 +82,7 @@ public class LigneCommandeDaoImpl implements ILigneCommandeDao {
 	@Override
 	public List<LigneCommande> getAllLignesCommandes() {
 		// construre la requête
-		String req = "SELECT lc FROM LigneCommande AS lc WHERE lc.commandes IS NULL";
+		String req = "SELECT lc FROM LigneCommande AS lc WHERE lc.commande IS NULL";
 		Query query = em.createQuery(req);
 		System.out.println("query : " + query);
 
