@@ -4,8 +4,9 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.ejb.EJB;
-import javax.enterprise.context.RequestScoped;
+
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 
 import fr.adaming.model.Client;
@@ -94,6 +95,8 @@ public class ClientManagedBean implements Serializable {
 
 	public String rechercherClient() {
 		Client clOut = clientService.getClientByNomEmail(this.client.getNomClient(), this.client.getEmail());
+		
+		
 		if (clOut != null) {
 			this.client = clOut;
 

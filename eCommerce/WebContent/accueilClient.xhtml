@@ -67,7 +67,10 @@
 		</p:dataTable>
 
 		<h:commandButton style="center" value="Modifier la commande" />
-
+		<h:commandButton style="center" value="Valider la commande" action="#{paMB.envoyerPanier}">
+			<f:setPropertyActionListener value="#{sessionScope.idCommande}"
+				target="#{paMB.idCommande}" />
+		</h:commandButton>
 	</h:form>
 
 
