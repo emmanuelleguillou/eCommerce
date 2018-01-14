@@ -11,15 +11,19 @@
 </h:head>
 
 <h:body>
-<!-- Insertion du header -->
+	<!-- Insertion du header -->
 	<ui:insert name="header"></ui:insert>
 	<ui:include src="template/headerAdmin.xhtml"></ui:include>
-	
+
 
 	<h1 style="text-align: center; color: red">Liste des categories</h1>
 
 	<p:dataTable var="cat" value="#{sessionScope.categoriesList}">
-		<p:column headerText="Id">
+		<p:column headerText="Photo">
+			<h:graphicImage value="#{cat.image}" width="200" height="200"></h:graphicImage>
+		</p:column>
+
+		<p:column headerText="ID">
 			<h:outputText value="#{cat.idCategorie}" />
 		</p:column>
 
@@ -31,9 +35,7 @@
 			<h:outputText value="#{cat.description}" />
 		</p:column>
 
-		<p:column headerText="Photo">
-			<h:graphicImage value="#{cat.image}" width="50" height="50"></h:graphicImage>
-		</p:column>
+
 
 		<p:column headerText="Operations">
 			<h:form>

@@ -26,8 +26,8 @@
 
 
 	<p:dataTable var="cat" value="#{sessionScope.categoriesList}">
-		<p:column headerText="Id">
-			<h:outputText value="#{cat.idCategorie}" />
+		<p:column headerText="Photo">
+			<h:graphicImage value="#{cat.image}" width="200" height="200"></h:graphicImage>
 		</p:column>
 
 		<p:column headerText="Nom">
@@ -38,9 +38,7 @@
 			<h:outputText value="#{cat.description}" />
 		</p:column>
 
-		<p:column headerText="Photo">
-			<h:graphicImage value="#{cat.image}" width="50" height="50"></h:graphicImage>
-		</p:column>
+		
 
 		<p:column headerText="Operations">
 			<h:form>

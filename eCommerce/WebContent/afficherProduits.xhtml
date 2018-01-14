@@ -14,8 +14,8 @@
 	<h:form>
 
 		<p:dataTable var="pro" value="#{sessionScope.produitListAll}">
-			<p:column headerText="Id">
-				<h:outputText value="#{pro.idProduit}" />
+			<p:column headerText="Photo">
+				<h:graphicImage value="#{pro.image}" width="200" height="200"></h:graphicImage>
 			</p:column>
 
 			<p:column headerText="Designation">

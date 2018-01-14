@@ -18,7 +18,7 @@
 		Description : <h:inputText value="#{caMB.categorie.description}"></h:inputText>
 		Photo <p:fileUpload mode="advanced" auto="true"
 				fileUploadListener="#{caMB.upload}" update="idImg" />
-			<h:graphicImage id="idImg" value="#{caMB.image}" width="50" height="50"></h:graphicImage>
+			<h:graphicImage id="idImg" value="#{caMB.image}" width="200" height="200"></h:graphicImage>
 			<p:commandButton value="Modifier catégorie"
 				action="#{caMB.modifierCategorie}"></p:commandButton>
 		</h:panelGrid>

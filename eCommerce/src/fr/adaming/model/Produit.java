@@ -36,6 +36,9 @@ public class Produit implements Serializable {
 
 	@Lob
 	private byte[] photo;
+	
+	@Transient
+	private String image;
 
 	// trasformation de l'associtation uml en java
 	@ManyToOne
@@ -135,6 +138,15 @@ public class Produit implements Serializable {
 
 	public Categorie getCategorie() {
 		return categorie;
+	}
+	
+
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
 	}
 
 	public void setCategorie(Categorie categorie) {

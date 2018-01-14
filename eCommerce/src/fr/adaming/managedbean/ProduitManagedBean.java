@@ -17,7 +17,11 @@ import fr.adaming.model.Produit;
 import fr.adaming.service.ICategorieService;
 import fr.adaming.service.ILigneCommandeService;
 import fr.adaming.service.IProduitService;
+
+import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.mail.*;
+import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.UploadedFile;
 
 @ManagedBean(name = "prMB")
 @RequestScoped
@@ -34,11 +38,14 @@ public class ProduitManagedBean implements Serializable {
 	private int nbProduit;
 	private HttpSession maSession;
 	private int idCategorie;
+	
+	private String image;
 
 	public ProduitManagedBean() {
 		this.produit = new Produit();
 	}
 
+	@SuppressWarnings("unchecked")
 	@PostConstruct
 	public void init() {
 		this.maSession = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
@@ -101,6 +108,14 @@ public class ProduitManagedBean implements Serializable {
 
 	public void setNbProduit(int nbProduit) {
 		this.nbProduit = nbProduit;
+	}
+	
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
 	}
 
 	public String ajouterProduitByCat() {
@@ -231,4 +246,17 @@ public class ProduitManagedBean implements Serializable {
 		return "accueil";
 	}
 
+	// Cette methode permet de transformer une image UploadFile en byte array
+	public void upload(FileUploadEvent event) {
+		UploadedFile uploadFile = event.getFile();
+		// Recuperer le contenu de l'image en byte array (pixels)
+		byte[] contents = uploadFile.getContents();
+		System.out.println("----------------   " + contents);
+		categorie.setPhoto(contents);
+		// Transforme byte array en string (format basé64)
+		image = "data:image/png;base64," + Base64.encodeBase64String(produit.getPhoto());
+		
+	}
+	
+	
 }

@@ -15,12 +15,15 @@
 	<!-- Insertion du header -->
 	<ui:insert name="header"></ui:insert>
 	<ui:include src="template/header.xhtml"></ui:include>
-	
-	<h1 style="text-align: center; color: red">Liste des produits de la categorie <h:outputText value="#{sessionScope.idCat}"/> </h1>
-	
+
+	<h1 style="text-align: center; color: red">
+		Liste des produits de la categorie
+		<h:outputText value="#{sessionScope.idCat}" />
+	</h1>
+
 	<p:dataTable var="pro" value="#{prMB.listeProduit}">
-		<p:column headerText="Id">
-			<h:outputText value="#{pro.idProduit}" />
+		<p:column headerText="Photo">
+			<h:graphicImage value="#{pro.image}" width="200" height="200"></h:graphicImage>
 		</p:column>
 
 		<p:column headerText="Designation">
@@ -52,12 +55,12 @@
 			</h:form>
 		</p:column>
 	</p:dataTable>
-	
+
 	<h:form>
 		<p:commandLink value="ajouter la commande"
-					action="#{cMB.ajouterComande}">
-					
-				</p:commandLink>
+			action="#{cMB.ajouterComande}">
+
+		</p:commandLink>
 	</h:form>
 
 </h:body>

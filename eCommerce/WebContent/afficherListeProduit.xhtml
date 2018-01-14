@@ -19,7 +19,11 @@
 	
 	<h:form>
 		<p:dataTable var="pro" value="#{sessionScope.produitListByCat}">
-			<p:column headerText="Id">
+			<p:column headerText="Photo">
+			<h:graphicImage value="#{pro.image}" width="200" height="200"></h:graphicImage>
+		</p:column>
+		
+		<p:column headerText="ID">
 				<h:outputText value="#{pro.idProduit}" />
 			</p:column>
 

@@ -31,18 +31,19 @@
 				<h:outputText value="#{com.dateCommande}" />
 			</p:column>
 
-			<p:column headerText="   ">
-				<h:commandLink value="Afficher le détail"
-					action="#{lcMB.afficherLigneCommandeByIDCommande}" update="@all">
-					<f:setPropertyActionListener value="#{sessionScope.idCommande}"
-						target="#{lcMB.idCommande}"/>
-				</h:commandLink>
-			</p:column>
+
 
 		</p:dataTable>
 	</h:form>
 
+	<h:form>
+		<h:commandLink value="Afficher le détail"
+			action="#{lcMB.afficherLigneCommandeByIDCommande}" update="@all">
+			<f:setPropertyActionListener value="#{sessionScope.idCommande}"
+				target="#{lcMB.idCommande}" />
+		</h:commandLink>
 
+	</h:form>
 
 
 	<h:form id="tableau" rendered="#{lcMB.indice}">

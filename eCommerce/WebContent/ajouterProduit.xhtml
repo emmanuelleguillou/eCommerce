@@ -16,7 +16,9 @@
 		Description : <h:inputText value="#{prMB.produit.description}"></h:inputText>
 		Prix : <h:inputText value="#{prMB.produit.prix}"></h:inputText>
 		Quantite : <h:inputText value="#{prMB.produit.quantite}"></h:inputText>
-		
+		Photo : <p:fileUpload mode="advanced" auto="true"
+				fileUploadListener="#{prMB.upload}" update="idImgP" />
+			<h:graphicImage id="idImgP" value="#{prMB.image}" width="200" height="200"></h:graphicImage>
 			<p:commandButton value="Ajouter produit"
 				action="#{prMB.ajouterProduitByCat}"></p:commandButton>
 		</h:panelGrid>
