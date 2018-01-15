@@ -172,11 +172,11 @@ public class PanierManagedBean implements Serializable {
 		 email.setHostName("smtp.googlemail.com");
 		 email.setSmtpPort(465);
 		 // Parametrage du compte
-		 email.setAuthenticator(new DefaultAuthenticator("marine.mmoysan@gmail.com",
+		 email.setAuthenticator(new DefaultAuthenticator("manulg13@gmail.com",
 		 "wanadoo8"));
 		 email.setSSLOnConnect(true);
 		 // Adresse de l'envoyeur
-		 email.setFrom("marine.moysan@gmail.com");
+		 email.setFrom("manulg13@gmail.com");
 		// Objet du mail
 		 email.setSubject("Votre commande " +this.idCommande);
 		 //Corps du mail
