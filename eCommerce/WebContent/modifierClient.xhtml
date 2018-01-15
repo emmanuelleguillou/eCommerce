@@ -11,20 +11,22 @@
 </h:head>
 
 <h:body>
+	<!-- Insertion du header -->
+	<ui:insert name="headerClient" />
+	<ui:include src="template/headerClient.xhtml" />
 
-	<ui:insert name="header"></ui:insert>
-	<ui:include src="template/header.xhtml"></ui:include>
+	<h:graphicImage library="pictures" name="soleil.gif"
+		style="position: absolute; right: 80px;" width="100" height="100"></h:graphicImage>
 
 
+	<h1 style="text-align: center; color: blue">Formulaire de modification de votre compte</h1>
+		
+			<hr />
 
 
-	<h1
-		style="text-align: center; color: red; margin-top: 50px; margin-left: -800px">Formulaire
-		de modification d'un client</h1>
-
-	<h:form
-		style="background-color: white ;width: 400px; margin-left: 75px ; margin-top:50px">
-		<h:panelGrid columns="2">
+	<h:form>
+	<p:growl id="messages" />
+		<h:panelGrid style="background-color: white ;width: 200px; margin-left: 450px ; margin-top:50px" columns="2">
 ID Client : <p:inputText id="idCl" label="ID CL" value="#{clMB.client.idClient}"
 				required="true"></p:inputText>
 
@@ -52,7 +54,7 @@ Téléphone : <p:inputText id="idTelephone" label="Telephone"
 			<br />
 			<br />
 
-			<h:commandButton style="center" value="Modifier un client"
+			<h:commandButton style="center" value="Modifier votre compte"
 				action="#{clMB.modifierClient}" />
 
 		</h:panelGrid>

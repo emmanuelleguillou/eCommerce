@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.ejb.EJB;
-
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
@@ -86,8 +86,12 @@ public class ClientManagedBean implements Serializable {
 	public String supprimerClient() {
 		clientService.deleteClient(this.client.getIdClient());
 		if (this.client.getIdClient() == null) {
-			return "accueil";
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage("Success", "Votre compte a été supprimé"));
+			return "accueilClient";
 		} else {
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage("Failure", "Votre compte n'a pas été supprimé"));
 			return "supprimerClient";
 		}
 
@@ -120,8 +124,12 @@ public class ClientManagedBean implements Serializable {
 	public String modifierClient() {
 		Client clOut = clientService.updateClient(this.client);
 		if (clOut != null) {
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage("Success", "Votre compte a été modifié"));
 			return "accueil";
 		} else {
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage("Failure", "Votre compte n'a pas été modifié"));
 			return "modifierClient";
 		}
 

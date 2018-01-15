@@ -18,11 +18,17 @@
 	<ui:insert name="headerClient" />
 	<ui:include src="template/headerClient.xhtml" />
 
+	<h:graphicImage library="pictures" name="soleil.gif"
+		style="position: absolute; right: 80px;" width="100" height="100"></h:graphicImage>
 
-	<h1 style="text-align: center; color: red">Votre commande</h1>
+
+	<h1 style="text-align: center; color: blue">Votre commande en
+		cours</h1>
+		
+			<hr />
 
 	<h:form>
-		<p:dataTable var="com" value="#{lcMB.commande}">
+		<p:dataTable style="background-color: white ; width: 900px ; center ; margin-left : 175px"  var="com" value="#{lcMB.commande}">
 			<p:column headerText="N° de la commande">
 				<h:outputText value="#{com.idCommande}" />
 			</p:column>
@@ -37,17 +43,17 @@
 	</h:form>
 
 	<h:form>
-		<h:commandLink value="Afficher le détail"
+		<h:commandButton style="margin-left : 175px" value="Afficher le détail"
 			action="#{lcMB.afficherLigneCommandeByIDCommande}" update="@all">
 			<f:setPropertyActionListener value="#{sessionScope.idCommande}"
 				target="#{lcMB.idCommande}" />
-		</h:commandLink>
+		</h:commandButton>
 
 	</h:form>
 
 
 	<h:form id="tableau" rendered="#{lcMB.indice}">
-		<p:dataTable var="lc" value="#{lcMB.listeLCbyC}">
+		<p:dataTable style="background-color: white ; width: 900px ; center ; margin-left : 175px"  var="lc" value="#{lcMB.listeLigneCommande}">
 			<p:column headerText="Id Ligne Commande">
 				<h:outputText value="#{lc.idLigneCommande}" />
 			</p:column>
@@ -66,10 +72,11 @@
 
 		</p:dataTable>
 
-		<h:commandButton style="center" value="Modifier la commande" />
-		<h:commandButton style="center" value="Valider la commande" action="#{paMB.envoyerPanier}">
+		
+		<h:commandButton style="margin-left : 175px" value="Valider la commande"
+			action="#{cMB.envoyerFacture}">
 			<f:setPropertyActionListener value="#{sessionScope.idCommande}"
-				target="#{paMB.idCommande}" />
+				target="#{cMB.idCommande}" />
 		</h:commandButton>
 	</h:form>
 

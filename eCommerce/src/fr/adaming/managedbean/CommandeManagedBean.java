@@ -1,5 +1,6 @@
 package fr.adaming.managedbean;
 
+import java.io.FileOutputStream;
 import java.io.Serializable;
 import java.util.List;
 
@@ -7,6 +8,20 @@ import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
+
+import org.apache.commons.mail.DefaultAuthenticator;
+import org.apache.commons.mail.EmailAttachment;
+import org.apache.commons.mail.EmailException;
+import org.apache.commons.mail.MultiPartEmail;
+
+import com.itextpdf.text.Chunk;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.FontFactory;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.Phrase;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
 
 import fr.adaming.model.Client;
 import fr.adaming.model.Commande;
@@ -27,7 +42,7 @@ public class CommandeManagedBean implements Serializable {
 	private Client client;
 	private List<LigneCommande> listeLigneCommande;
 	private LigneCommande ligneCommande;
-
+	private long idCommande;
 
 	// constructeur par défaut
 	public CommandeManagedBean() {
@@ -39,6 +54,14 @@ public class CommandeManagedBean implements Serializable {
 	// getters et setters
 	public Commande getCommande() {
 		return commande;
+	}
+
+	public long getIdCommande() {
+		return idCommande;
+	}
+
+	public void setIdCommande(long idCommande) {
+		this.idCommande = idCommande;
 	}
 
 	public void setCommande(Commande commande) {
@@ -124,7 +147,7 @@ public class CommandeManagedBean implements Serializable {
 		if (cOut == null) {
 			return "pageClient";
 		} else {
-			return "suprimerCommande";
+			return "supprimerCommande";
 		}
 	}
 
@@ -136,4 +159,122 @@ public class CommandeManagedBean implements Serializable {
 		return "#";
 	
 	}
+	
+	public String envoyerFacture() {
+		//récupération du client correspondant 
+		
+		this.listeLigneCommande = ligneCommandeService.getAllLigneCommandeByIdCommande(this.idCommande);
+
+		// Récupere la commande
+		this.commande = commandeService.getCommande(this.idCommande);
+
+		// Création d'un document de taille A4 avec une marge de 36 sur
+		// chaque bord
+		// Document document = new Document(PageSize.A4, 36, 36, 36, 36);
+		Document document = new Document();
+		try {
+			// Définir le type de document souhaité ainsi que son nom
+			PdfWriter.getInstance(document, new FileOutputStream("C:/Users/marin/Desktop/PDFTp/commande" + this.idCommande + ".pdf"));
+			// Ouverture du document
+			document.open();
+			// Definition des polices
+			Font chapterFont = FontFactory.getFont(FontFactory.HELVETICA, 16);
+
+			// Création des elements à ajouter dans le document
+			String titre = "Facture pour la commande " + this.idCommande + " de "
+					+ this.commande.getClient().getNomClient() + " du " + this.commande.getDateCommande() + "\n";
+			Chunk c1 = new Chunk(titre, chapterFont);
+
+			Phrase p1 = new Phrase("Recapitulatif de votre commande : \n\n\n\n");
+			
+			PdfPTable table = new PdfPTable(6);
+			table.addCell("ID Ligne Commande");
+			table.addCell("Id Produit");
+			table.addCell("Produit");
+			table.addCell("Prix unitaire");
+			table.addCell("Quantité");
+			table.addCell("Prix total");
+			double prixT=0;
+			for (LigneCommande ligneCommande : this.listeLigneCommande) {
+				table.addCell(Integer.toString(ligneCommande.getIdLigneCommande()));
+				table.addCell(Integer.toString(ligneCommande.getProduit().getIdProduit()));
+				table.addCell(ligneCommande.getProduit().getDesignation());
+				table.addCell(Double.toString(ligneCommande.getProduit().getPrix()));
+				table.addCell(Integer.toString(ligneCommande.getQuantite()));
+				table.addCell(Double.toString(ligneCommande.getPrix()));
+				prixT=prixT+ligneCommande.getPrix();
+			}
+			
+			Phrase p2 = new Phrase("Total de la commande : " +prixT +"€");
+			
+			//Ajout des elements dans le documents
+			document.add(new Paragraph(c1));
+		
+			document.add(new Paragraph(p1));
+
+			
+			document.add(table);
+			
+			
+			document.add(new Paragraph(p2));
+			
+			
+			
+		} catch (Exception e) {
+			// F
+			System.out.println("Echec envoyer mail");
+			e.printStackTrace();
+		}
+		// Fermeture du document
+		document.close();
+
+		try{
+		 // Creation de la piece jointe
+		 EmailAttachment attachment = new EmailAttachment();
+		 attachment.setPath("C:/Users/marin/Desktop/PDFTp/commande" + this.idCommande + ".pdf");
+		 attachment.setDisposition(EmailAttachment.ATTACHMENT);
+		 
+		 
+		 // Creation du mail avec piece jointe
+		 MultiPartEmail email = new MultiPartEmail();
+		 email.setHostName("smtp.googlemail.com");
+		 email.setSmtpPort(465);
+		 // Parametrage du compte
+		 email.setAuthenticator(new DefaultAuthenticator("marine.mmoysan@gmail.com",
+		 "wanadoo8"));
+		 email.setSSLOnConnect(true);
+		 // Adresse de l'envoyeur
+		 email.setFrom("marine.moysan@gmail.com");
+		// Objet du mail
+		 email.setSubject("Votre commande " +this.idCommande);
+		 //Corps du mail
+		 email.setMsg("Bonjour, \n \n Merci pour votre commande, veuillez trouver ci-joint le recapitulatif \n");
+		 //destinataire du mail
+		 email.addTo(this.commande.getClient().getEmail());
+		
+		 // Ajouter la pièce jointe
+		 email.attach(attachment);
+		 // envoyer le mail
+		 email.send();
+		} catch (EmailException em){
+			em.printStackTrace();
+		}
+		return "accueilClient";
+		
+		
+	}
+	
+	public String rechercherCommandeIDC(){
+		
+		this.commande=commandeService.getCommande(this.commande.getIdCommande());
+		
+		return "rechercherCommande";
+		
+	}
+	
+	
+	
+	
+	
+	
 }

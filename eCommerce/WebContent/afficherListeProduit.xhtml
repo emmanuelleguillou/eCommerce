@@ -14,16 +14,26 @@
 	<!-- Insertion du header -->
 	<ui:insert name="header"></ui:insert>
 	<ui:include src="template/headerAdmin.xhtml"></ui:include>
-	
-	<h1 style="text-align: center; color: red">Liste des produits de la categorie <h:outputText value="#{sessionScope.idCat}"/> </h1>
-	
-	<h:form>
+
+	<h:graphicImage library="pictures" name="soleil.gif"
+		style="position: absolute; right: 80px;" width="100" height="100"></h:graphicImage>
+
+
+
+	<h1 style="text-align: center; color: blue">
+		Liste des produits de la categorie
+		<h:outputText value="#{sessionScope.idCat}" />
+	</h1>
+
+	<hr />
+
+	<h:form style="background-color: white ; width: 900px ; center ; margin-left : 175px">
 		<p:dataTable var="pro" value="#{sessionScope.produitListByCat}">
 			<p:column headerText="Photo">
-			<h:graphicImage value="#{pro.image}" width="200" height="200"></h:graphicImage>
-		</p:column>
-		
-		<p:column headerText="ID">
+				<h:graphicImage value="#{pro.image}" width="200" height="200"></h:graphicImage>
+			</p:column>
+
+			<p:column headerText="ID">
 				<h:outputText value="#{pro.idProduit}" />
 			</p:column>
 
@@ -44,14 +54,14 @@
 			</p:column>
 
 			<p:column headerText="Operations">
-				<p:commandLink value="supprimer"
+				<p:commandLink value="Supprimer"
 					action="#{prMB.supprimerProduitByCat}" update="@all">
 					<f:setPropertyActionListener value="#{pro.idProduit}"
 						target="#{prMB.produit.idProduit}"></f:setPropertyActionListener>
 				</p:commandLink>
 
 				<h:outputText value=" / " />
-				<p:commandLink value="modifier" action="#{prMB.modifLien}">
+				<p:commandLink value="Modifier" action="#{prMB.modifLien}">
 					<f:setPropertyActionListener value="#{pro.idProduit}"
 						target="#{prMB.produit.idProduit}"></f:setPropertyActionListener>
 				</p:commandLink>
@@ -60,7 +70,7 @@
 			</p:column>
 		</p:dataTable>
 
-		<h:commandLink value="Ajouter Produit" action="ajouterProduit.xhtml"></h:commandLink>
+		<p:commandButton value="Ajouter un Produit" action="ajouterProduit.xhtml"/>
 
 	</h:form>
 </h:body>

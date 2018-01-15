@@ -24,7 +24,7 @@ import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
 
 @ManagedBean(name = "prMB")
-@RequestScoped
+@ViewScoped
 public class ProduitManagedBean implements Serializable {
 	@EJB
 	private IProduitService produitService;

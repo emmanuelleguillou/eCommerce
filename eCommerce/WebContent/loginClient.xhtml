@@ -7,30 +7,47 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <h:head>
-	<h:title>Page Login</h:title>
+	<title>Page Login</title>
 </h:head>
-<h:body>
+<h:body
+	style="background: url('resources/pictures/fod4.jpg.jpg') no-repeat center; background-size: cover">
 
-	<h1 style="text-align: center; color: red; margin-top: 50px; margin-left: -800px">Formulaire de connexion d'un client</h1>
+	<h:graphicImage library="pictures" name="soleil.gif"
+		style="position: absolute; right: 80px;" width="150" height="150"></h:graphicImage>
+
+	<h1 style="text-align: center; color: blue">Enregistrement du
+		client</h1>
+
+	<hr />
+
+	<h2 style="text-align: center; color: blue; margin-top: 50px">Connectez-vous</h2>
+
+
 	<h:form>
-		<h:panelGrid columns="2">
+		<h:panelGrid
+			style="background-color: white ;width: 250px; margin-left: 475px ; margin-top:50px"
+			columns="2">
 		Nom : <h:inputText value="#{clMB.client.nomClient}"></h:inputText>
 			<br />
 		Mail : <h:inputText value="#{clMB.client.email}"></h:inputText>
+			<br />
 
-			<h:commandButton style="center" value="Login"
-				action="#{clMB.rechercherClient}" />
 		</h:panelGrid>
-
+		<br />
+		<h:commandButton
+			style="center; margin-left : 500px; background-color : aqua"
+			value="Login" action="#{clMB.rechercherClient}" />
 	</h:form>
 
 	<br />
+	<gr />
+	<br />
 
-	<h1 style="text-align: center; color: red; margin-top: 50px; margin-left: -800px">Formulaire
-		d'ajout d'un client</h1>
+	<h2
+		style="text-align: center; color: blue; margin-top: 50px">Enregistrez-vous</h2>
 
-	<h:form style="background-color: white ;width: 400px; margin-left: 75px ; margin-top:50px">
-		<h:panelGrid columns="2">
+	<h:form>
+		<h:panelGrid style="background-color: white ;width: 250px; margin-left: 475px ; margin-top:50px" columns="2">
 
 		Nom : <p:inputText id="idNom" label="Nom"
 				value="#{clMB.client.nomClient}" required="true"></p:inputText>
@@ -51,13 +68,12 @@
 				value="#{clMB.client.tel}" required="true"></p:inputText>
 
 			<br />
-			<br />
 
-			<h:commandButton style="center" value="Ajouter un client"
-				action="#{clMB.ajouterClient}" />
 
 		</h:panelGrid>
-
+		<br />
+		<h:commandButton style="center; margin-left : 500px; background-color : aqua" value="Ajouter un client"
+			action="#{clMB.ajouterClient}" />
 
 	</h:form>
 

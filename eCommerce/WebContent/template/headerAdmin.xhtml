@@ -8,19 +8,23 @@
 
 	<title>Header</title>
 </h:head>
-<h:body>
+<h:body
+	style="background: url('resources/pictures/fond2.jpg') no-repeat center fixed; background-size: cover">
+
+
 
 	<h:form>
 		<p:menubar>
-			<p:menuitem value="Accueil" url="accueil.xhtml" />
+
 			<p:menuitem value="Accueil Admin" url="accueilAdmin.xhtml" />
 			<p:menuitem value="Ajouter categorie" url="ajoutCategorie.xhtml"
 				icon="ui-icon-plus" />
 
-
+			<p:menuitem style="position: absolute; right: 10px;" value="Retour au Site"
+				url="accueil.xhtml" />
 		</p:menubar>
-		<p:spacer height="10"></p:spacer>
-		<p:separator></p:separator>
+		
+		
 
 	</h:form>
 

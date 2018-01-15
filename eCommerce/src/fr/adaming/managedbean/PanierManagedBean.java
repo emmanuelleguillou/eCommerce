@@ -26,7 +26,7 @@ import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 
 @ManagedBean(name = "paMB")
-@RequestScoped
+@SessionScoped
 public class PanierManagedBean implements Serializable {
 
 	@EJB
@@ -92,7 +92,7 @@ public class PanierManagedBean implements Serializable {
 	}
 
 	// Les méthodes
-	public String envoyerPanier() {
+	public String envoyerFacture() {
 		// Récupération de toutes les lignes de commandes associées à un
 		// idCommande null
 		this.listeLignecommande = ligneCommandeService.getAllLigneCommandeByIdCommande(this.idCommande);
@@ -172,11 +172,11 @@ public class PanierManagedBean implements Serializable {
 		 email.setHostName("smtp.googlemail.com");
 		 email.setSmtpPort(465);
 		 // Parametrage du compte
-		 email.setAuthenticator(new DefaultAuthenticator("manulg13@gmail.com",
+		 email.setAuthenticator(new DefaultAuthenticator("marine.mmoysan@gmail.com",
 		 "wanadoo8"));
 		 email.setSSLOnConnect(true);
 		 // Adresse de l'envoyeur
-		 email.setFrom("manulg13@gmail.com");
+		 email.setFrom("marine.moysan@gmail.com");
 		// Objet du mail
 		 email.setSubject("Votre commande " +this.idCommande);
 		 //Corps du mail
@@ -193,4 +193,17 @@ public class PanierManagedBean implements Serializable {
 		}
 		return "accueilClient";
 	}
+	
+	//pour envoyer les lignes commandes dans le panier
+	public String envoyerPanier() {
+		//récupérer toutes les lignes de commandes avec un id comande null (car non validée)
+		this.listeLignecommande=ligneCommandeService.getAllLignesCommandes();
+		
+		//Passer la liste des lignes commandes dans la session
+		FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("listeLCPanier", this.listeLignecommande);
+		
+				
+		return "panier" ;
+	}
+	
 }

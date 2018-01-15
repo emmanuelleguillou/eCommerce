@@ -19,7 +19,7 @@ import fr.adaming.service.ILigneCommandeService;
 import fr.adaming.service.IProduitService;
 
 @ManagedBean(name = "lcMB")
-//@SessionScoped
+// @SessionScoped
 @RequestScoped
 public class LigneCommandeManagedBean implements Serializable {
 
@@ -34,13 +34,14 @@ public class LigneCommandeManagedBean implements Serializable {
 	private Produit produit;
 	private Commande commande;
 	private boolean indice = false;
-	List<LigneCommande> listeLCbyC;
-	private int  idCommande;
-	
+	List<LigneCommande> listeLigneCommande;
+	private int idCommande;
+
 	// Constructeur par défaut
 	public LigneCommandeManagedBean() {
 		this.ligneCommande = new LigneCommande();
 		this.produit = new Produit();
+		this.listeLigneCommande = new ArrayList<LigneCommande>();
 
 	}
 
@@ -61,7 +62,6 @@ public class LigneCommandeManagedBean implements Serializable {
 		this.produit = produit;
 	}
 
-
 	public Commande getCommande() {
 		return commande;
 	}
@@ -77,17 +77,16 @@ public class LigneCommandeManagedBean implements Serializable {
 	public void setIndice(boolean indice) {
 		this.indice = indice;
 	}
-	
-	public List<LigneCommande> getListeLCbyC() {
-		return listeLCbyC;
+
+
+	public List<LigneCommande> getListeLigneCommande() {
+		return listeLigneCommande;
 	}
 
-	public void setListeLCbyC(List<LigneCommande> listeLCbyC) {
-		this.listeLCbyC = listeLCbyC;
+	public void setListeLigneCommande(List<LigneCommande> listeLigneCommande) {
+		this.listeLigneCommande = listeLigneCommande;
 	}
 
-	
-	
 	public int getIdCommande() {
 		return idCommande;
 	}
@@ -104,15 +103,40 @@ public class LigneCommandeManagedBean implements Serializable {
 		this.ligneCommande.setProduit(this.produit);
 		// calcul du prix total
 		this.ligneCommande.setPrix(ligneCommandeService.calculPrixLigneCommande(this.ligneCommande, this.produit));
-		// ajout de la ligne dans la base de données
-		this.ligneCommande = ligneCommandeService.addLigneCommande(this.ligneCommande);
-		System.out.println(this.ligneCommande);
+
+		if(this.produit.getQuantite() >= 0) {
+			// modification de la quantité de produit en stock
+			int quantiteRestante = this.produit.getQuantite() - this.ligneCommande.getQuantite();
+
+			// Modifier la quantité de produit en stock restant
+			if (quantiteRestante > 0) {
+				this.produit.setQuantite(quantiteRestante);
+				produitService.updateProduit(this.produit);
+
+				// ajout de la ligne dans la base de données
+				this.ligneCommande = ligneCommandeService.addLigneCommande(this.ligneCommande);
+				System.out.println(this.ligneCommande);
+			}
+
+		}
+		
+		//pour envoyer les lignes commandes dans le panier
+		//récupérer toutes les lignes de commandes avec un id comande null (car non validée)
+		this.listeLigneCommande=ligneCommandeService.getAllLignesCommandes();
+		
+		//Passer la liste des lignes commandes dans la session
+		FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("listeLCPanier", this.listeLigneCommande);
+		
+
+		
 		if (this.ligneCommande.getIdLigneCommande() != 0) {
 			FacesContext.getCurrentInstance().addMessage(null,
 					new FacesMessage("Success", "Ligne de commande ajoutée"));
 			return "afficherListeProduitClient";
 		} else {
-			return "ajouterLigneCommande";
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage("Failure", "Ligne de commande non ajoutée"));
+			return "afficherListeProduitClient";
 		}
 
 	}
@@ -158,22 +182,22 @@ public class LigneCommandeManagedBean implements Serializable {
 	}
 
 	public String afficherLigneCommandeByIDCommande() {
-		
+
 		indice = true;
-		//passer toutes les lignes de commande d'une commande dans une liste
-		//List<LigneCommande> listeLCbyC = ligneCommandeService.getAllLigneCommandeByIdCommande(this.commande.getIdCommande());
-		//Passer la liste dans la sessio,
-		
-		//FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("listeLCbyC", liste);
-		listeLCbyC = ligneCommandeService.getAllLigneCommandeByIdCommande(this.idCommande);
-		for (LigneCommande ligneCommande : listeLCbyC) {
+		// passer toutes les lignes de commande d'une commande dans une liste
+		// List<LigneCommande> listeLCbyC =
+		// ligneCommandeService.getAllLigneCommandeByIdCommande(this.commande.getIdCommande());
+		// Passer la liste dans la sessio,
+
+		// FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("listeLCbyC",
+		// liste);
+		this.listeLigneCommande = ligneCommandeService.getAllLigneCommandeByIdCommande(this.idCommande);
+		for (LigneCommande ligneCommande : this.listeLigneCommande) {
 			System.out.println(ligneCommande);
 		}
-		
+
 		this.commande = commandeService.getCommande(this.idCommande);
 		return "accueilClient";
 	}
-	
-	
-	
+
 }
