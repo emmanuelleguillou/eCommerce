@@ -72,10 +72,10 @@ public class LigneCommandeDaoImpl implements ILigneCommandeDao {
 
 	@Override
 	public double calculPrixLigneCommande(LigneCommande lc, Produit p) {
-		System.out.println("lc :" + lc + "\n" + "p : " + p);
-		System.out.println("p.getprix : " + p.getPrix());
+		//System.out.println("lc :" + lc + "\n" + "p : " + p);
+		//System.out.println("p.getprix : " + p.getPrix());
 		double prixTotal = p.getPrix() * lc.getQuantite();
-		System.out.println("prix :" + prixTotal);
+		//System.out.println("prix :" + prixTotal);
 		return prixTotal;
 	}
 
@@ -84,15 +84,15 @@ public class LigneCommandeDaoImpl implements ILigneCommandeDao {
 		// construre la requête
 		String req = "SELECT lc FROM LigneCommande AS lc WHERE lc.commande IS NULL";
 		Query query = em.createQuery(req);
-		System.out.println("query : " + query);
+		//System.out.println("query : " + query);
 
 		// mettre les parametres
 		// query.setParameter("idCommande", null);
 		// System.out.println("query : " + query);
-		System.out.println("liste avant evoyer liste : " + query.getResultList());
+		//System.out.println("liste avant evoyer liste : " + query.getResultList());
 		// création de la nouvelle liste des lignes commandes
 		List<LigneCommande> listeLigneCommande = query.getResultList();
-		System.out.println("liste : " + listeLigneCommande);
+		//System.out.println("liste : " + listeLigneCommande);
 
 		return listeLigneCommande;
 	}

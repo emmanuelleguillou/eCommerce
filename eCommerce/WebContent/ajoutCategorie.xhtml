@@ -10,6 +10,19 @@
 	<h:title>Page Ajout</h:title>
 </h:head>
 <h:body>
+
+	<!-- Insertion du header -->
+	<ui:insert name="header"></ui:insert>
+	<ui:include src="template/headerAdmin.xhtml"></ui:include>
+
+	<h:graphicImage library="pictures" name="soleil.gif"
+		style="position: absolute; right: 80px;" width="100" height="100"></h:graphicImage>
+
+
+	<h1 style="text-align: center; color: blue">Formulaire d'ajout d'une categorie</h1>
+
+	<hr />
+
 	<h:form enctype="multipart/form-data">
 		<h:panelGrid columns="2">
 		Nom : <h:inputText value="#{caMB.categorie.nomCategorie}"></h:inputText>

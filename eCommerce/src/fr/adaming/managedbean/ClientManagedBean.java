@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.ejb.EJB;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
@@ -16,7 +17,7 @@ import fr.adaming.service.IClientService;
 import fr.adaming.service.ICommandeService;
 
 @ManagedBean(name = "clMB")
-@RequestScoped
+@SessionScoped
 public class ClientManagedBean implements Serializable {
 
 	@EJB
@@ -76,6 +77,12 @@ public class ClientManagedBean implements Serializable {
 		this.commande.setClient(this.client);
 		this.commande = commandeService.updateCommande(this.commande);
 
+		// liste des commandes du client
+		this.listeCommandes = commandeService.gettAllCommande(this.client.getIdClient());
+		// Passer la liste des commandes dans la session
+		FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("listeCommandes",
+				this.listeCommandes);
+
 		if (this.client.getIdClient() != 0) {
 			return "accueilClient";
 		} else {
@@ -99,8 +106,7 @@ public class ClientManagedBean implements Serializable {
 
 	public String rechercherClient() {
 		Client clOut = clientService.getClientByNomEmail(this.client.getNomClient(), this.client.getEmail());
-		
-		
+
 		if (clOut != null) {
 			this.client = clOut;
 
@@ -113,6 +119,14 @@ public class ClientManagedBean implements Serializable {
 			this.commande = commandeService.updateCommande(this.commande);
 			// Passer le client dans la session
 			FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("client", this.client);
+
+			// liste des commandes du client
+			this.listeCommandes = commandeService.gettAllCommande(this.client.getIdClient());
+			System.out.println("Liste des comandes : " + this.listeCommandes);
+			
+			// Passer la liste des commandes dans la session
+			FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("listeCommandes",
+					this.listeCommandes);
 
 			return "accueilClient";
 		} else {

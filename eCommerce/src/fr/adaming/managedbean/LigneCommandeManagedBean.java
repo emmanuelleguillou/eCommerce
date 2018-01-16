@@ -115,7 +115,7 @@ public class LigneCommandeManagedBean implements Serializable {
 
 				// ajout de la ligne dans la base de données
 				this.ligneCommande = ligneCommandeService.addLigneCommande(this.ligneCommande);
-				System.out.println(this.ligneCommande);
+				//System.out.println(this.ligneCommande);
 			}
 
 		}
@@ -193,7 +193,7 @@ public class LigneCommandeManagedBean implements Serializable {
 		// liste);
 		this.listeLigneCommande = ligneCommandeService.getAllLigneCommandeByIdCommande(this.idCommande);
 		for (LigneCommande ligneCommande : this.listeLigneCommande) {
-			System.out.println(ligneCommande);
+			//System.out.println(ligneCommande);
 		}
 
 		this.commande = commandeService.getCommande(this.idCommande);

@@ -105,12 +105,12 @@ public class CommandeManagedBean implements Serializable {
 		for (LigneCommande lc : this.listeLigneCommande) {
 			lc.setCommandes(this.commande);
 			this.ligneCommande = ligneCommandeService.updateLigneCommande(lc);
-			System.out.println("commande de la lc : " + this.ligneCommande);
+			//System.out.println("commande de la lc : " + this.ligneCommande);
 		}
 
 		//générer une nouvelle liste des ligne commande qui sont associées à la commande
 		this.listeLigneCommande = ligneCommandeService.getAllLigneCommandeByIdCommande(this.commande.getIdCommande());
-		System.out.println("liste des lc par id commande : " + this.listeLigneCommande);
+		//System.out.println("liste des lc par id commande : " + this.listeLigneCommande);
 		
 		//On ajoute dans la sesion l'id de la commande pour le retrouver l'hors de l'affichage de la commande dans l'espace client
 		FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("idCommande", this.commande.getIdCommande());
@@ -240,11 +240,11 @@ public class CommandeManagedBean implements Serializable {
 		 email.setHostName("smtp.googlemail.com");
 		 email.setSmtpPort(465);
 		 // Parametrage du compte
-		 email.setAuthenticator(new DefaultAuthenticator("marine.mmoysan@gmail.com",
+		 email.setAuthenticator(new DefaultAuthenticator("manulg13@gmail.com",
 		 "wanadoo8"));
 		 email.setSSLOnConnect(true);
 		 // Adresse de l'envoyeur
-		 email.setFrom("marine.moysan@gmail.com");
+		 email.setFrom("manulg13@gmail.com");
 		// Objet du mail
 		 email.setSubject("Votre commande " +this.idCommande);
 		 //Corps du mail
